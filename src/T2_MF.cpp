@@ -1,4 +1,5 @@
 //Author: Abel Teklu Hilemichael
+//The operation in this code returns the membership value for a type-2 MF
 
 #include <exception>
 #include <string>

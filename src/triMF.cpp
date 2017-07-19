@@ -1,4 +1,5 @@
 //Author: Abel Teklu Hilemichael
+//The operation in this code returns the membership value for a triangular MF
 
 #include <exception>
 using namespace std;
@@ -12,6 +13,7 @@ triMF::triMF() {
 triMF::~triMF() {
 }
 
+//Calculate triangular MF
 double triMF::returnMemVal(double aInput, double aA, double aB, double aC, double aMax) {
 	_pSlope = (aMax) / (aB - aA);
 		_nSlope = (-aMax) / (aC - aB);

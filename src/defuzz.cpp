@@ -1,4 +1,5 @@
 //Author: Abel Teklu Hilemichael
+//This code performs defuzzification for type-1 and tpe-2 FLSs for TSK and Mamdani FLSs
 
 #include <exception>
 #include <vector>
@@ -10,7 +11,7 @@ defuzz::defuzz() {
 }
 
 vector<double> defuzz::t1_tsk(vector<double> aInput, vector<double> aFiring_level) {
-	//for all outputs, get the crisp output using UB
+	//for all outputs, get the crisp output using weighted average defuzzification
 				for (int _out = 0; _out < _numOutputs; _out++) {
 					//construct yl and yr from rule
 					vector<double> _y;
@@ -39,7 +40,7 @@ vector<double> defuzz::t1_tsk(vector<double> aInput, vector<double> aFiring_leve
 }
 
 vector<double> defuzz::ub(vector<double> aInput, vector<double> aUfiring_level, vector<double> aLfiring_level) {
-	//for all outputs, get the crisp output using UB
+	//for all outputs, get the crisp output using UB output processing technique
 				for (int _out = 0; _out < _numOutputs; _out++) {
 					//construct yl and yr from rule
 					vector<double> _y_l;
@@ -110,7 +111,7 @@ vector<double> defuzz::ub(vector<double> aInput, vector<double> aUfiring_level, 
 }
 
 vector<double> defuzz::centroid(vector<double> aInput, vector<double> aFiring_level) {
-	//for all outputs, get the crisp output using UB
+	//for all outputs, get the crisp output using centroid defuzzification technique
 	for (int _out = 0; _out < _numOutputs; _out++) {
 		
 		int _local_index = 4;
@@ -169,7 +170,7 @@ vector<double> defuzz::centroid(vector<double> aInput, vector<double> aFiring_le
 }
 
 vector<double> defuzz::nt(vector<double> aInput, vector<double> _umf_firingLevel, vector<double> _lmf_firingLevel) {
-	//for all outputs, get the crisp output using UB
+	//for all outputs, get the crisp output using NT type reduction and defuzzification technique
 	for (int _out = 0; _out < _numOutputs; _out++) {
 
 		int _local_index = 4;

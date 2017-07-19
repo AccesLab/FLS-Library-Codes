@@ -1,4 +1,5 @@
 //Author: Abel Teklu Hilemichael
+//This code returns the membership value for type 1 triangular trapezoidal and gaussina membership functions
 
 #include <exception>
 using namespace std;
@@ -13,6 +14,7 @@ type1mfs::type1mfs() {
 type1mfs::~type1mfs() {
 }
 
+//Triangular MF
 double type1mfs::trimf(double aInput, double aP1, double aP2, double aP3, double aMax) {
 	_pSlope = (aMax) / (aP2 - aP1);
 	_nSlope = (-aMax) / (aP3 - aP2);
@@ -30,6 +32,7 @@ double type1mfs::trimf(double aInput, double aP1, double aP2, double aP3, double
 	return _mfVal;
 }
 
+//Trapezoidal MF
 double type1mfs::trapmf(double aInput, double aP1, double aP2, double aP3, double aP4, double aMax) {
 	_pSlope = (aMax) / (aP2 - aP1);
 	_nSlope = (-aMax) / (aP4 - aP3);
@@ -49,6 +52,8 @@ double type1mfs::trapmf(double aInput, double aP1, double aP2, double aP3, doubl
 
 	return _mfVal;
 }
+
+//Gaussian MF
 //p1 mean, p2 sd
 double type1mfs::gaussmf(double aInput, double aP1, double aP2) {
 	return (exp((-pow((aInput - aP1), 2)) / (2 * (pow(aP2, 2)))));

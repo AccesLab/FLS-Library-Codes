@@ -1,4 +1,5 @@
 //Author: Abel Teklu Hilemichael
+//The operation in this code performs fuzzification of all inputs and returns the fuzzified values
 
 #include <exception>
 #include <vector>

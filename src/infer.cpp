@@ -1,4 +1,5 @@
 //Author: Abel Teklu Hilemichael
+//The operation in this code performs fuzzy inference operations and returns firing level
 
 #include <exception>
 #include <vector>
@@ -30,13 +31,13 @@ vector<double> infer::firingLevel(vector<vector<double> > aFuzzified_val) {
 			_cartesian.swap(_tmp2);
 		}
 		
-		for (size_t i = 0; i < _cartesian.size(); i++) {
+		/*for (size_t i = 0; i < _cartesian.size(); i++) {
 			for (size_t j = 0; j < _cartesian[i].size(); j++) {
 				cout << _cartesian[i][j] << "\t";
 			}
 			cout << std::endl;
 		}
-		cout << _cartesian.size() << "\t";
+		cout << _cartesian.size() << "\t";*/
 
 	//find t norm, s norm 
 		if (_andMethod == "min") {
