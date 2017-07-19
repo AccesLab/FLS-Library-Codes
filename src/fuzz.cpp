@@ -33,22 +33,22 @@ vector<vector<double> > fuzz::fuzzify(int aSetID, vector<double> aInputs) {
 			for (int j = 0; j < _numofMFs; j++) {
 				
 				if (_InputMatrix[i][3] == 0) {
-					_fuzzified_val[i].push_back(tmf.returnMemVal(aInputs[i], _InputMatrix[i][_local_index], _InputMatrix[i][_local_index + 1], _InputMatrix[i][_local_index + 2], _InputMatrix[i][_local_index + 4]));
+					_fuzzified_val[i].push_back(t1mfs.trimf(aInputs[i], _InputMatrix[i][_local_index], _InputMatrix[i][_local_index + 1], _InputMatrix[i][_local_index + 2], _InputMatrix[i][_local_index + 4]));
 					_local_index += 7;
 				}
 				if (_InputMatrix[i][3] == 1) {
-					_fuzzified_val[i].push_back(tpmf.returnMemVal(aInputs[i], _InputMatrix[i][_local_index], _InputMatrix[i][_local_index + 1], _InputMatrix[i][_local_index + 2], _InputMatrix[i][_local_index + 3], _InputMatrix[i][_local_index + 4]));
+					_fuzzified_val[i].push_back(t1mfs.trapmf(aInputs[i], _InputMatrix[i][_local_index], _InputMatrix[i][_local_index + 1], _InputMatrix[i][_local_index + 2], _InputMatrix[i][_local_index + 3], _InputMatrix[i][_local_index + 4]));
 					_local_index += 7;
 				}
 				if (_InputMatrix[i][3] == 2) {
-					_fuzzified_val[i].push_back(gmf.returnMemVal(aInputs[i], _InputMatrix[i][_local_index], _InputMatrix[i][_local_index + 1], _InputMatrix[i][_local_index + 4]));
+					_fuzzified_val[i].push_back(t1mfs.gaussmf(aInputs[i], _InputMatrix[i][_local_index], _InputMatrix[i][_local_index + 1]));
 					_local_index += 7;
 				}
 			}
 		}// end of For all inputs for T1
 	}//end of if set id 0
 
-	if (aSetID == 1) {//if it it it2 ub system for upper bound
+	if (aSetID == 1) {//if it it it2 ub system for upper bound or NT
 					  //create vector of vector storage place for fuzzified value of UMF
 		for (int i = 0; i < _numInputs; i++)
 		{
@@ -64,22 +64,22 @@ vector<vector<double> > fuzz::fuzzify(int aSetID, vector<double> aInputs) {
 			for (int j = 0; j < _numofuMFs; j++) {
 
 				if (_uInputMatrix[i][3] == 0) {
-					_u_fuzzified_val[i].push_back(tmf.returnMemVal(aInputs[i], _uInputMatrix[i][_u_local_index], _uInputMatrix[i][_u_local_index + 1], _uInputMatrix[i][_u_local_index + 2], _uInputMatrix[i][_u_local_index + 4]));
+					_u_fuzzified_val[i].push_back(t1mfs.trimf(aInputs[i], _uInputMatrix[i][_u_local_index], _uInputMatrix[i][_u_local_index + 1], _uInputMatrix[i][_u_local_index + 2], _uInputMatrix[i][_u_local_index + 4]));
 					_u_local_index += 7;
 				}
 				if (_uInputMatrix[i][3] == 1) {
-					_u_fuzzified_val[i].push_back(tpmf.returnMemVal(aInputs[i], _uInputMatrix[i][_u_local_index], _uInputMatrix[i][_u_local_index + 1], _uInputMatrix[i][_u_local_index + 2], _uInputMatrix[i][_u_local_index + 3], _uInputMatrix[i][_u_local_index + 4]));
+					_u_fuzzified_val[i].push_back(t1mfs.trapmf(aInputs[i], _uInputMatrix[i][_u_local_index], _uInputMatrix[i][_u_local_index + 1], _uInputMatrix[i][_u_local_index + 2], _uInputMatrix[i][_u_local_index + 3], _uInputMatrix[i][_u_local_index + 4]));
 					_u_local_index += 7;
 				}
 				if (_uInputMatrix[i][3] == 2) {
-					_u_fuzzified_val[i].push_back(gmf.returnMemVal(aInputs[i], _uInputMatrix[i][_u_local_index], _uInputMatrix[i][_u_local_index + 1], _uInputMatrix[i][_u_local_index + 4]));
+					_u_fuzzified_val[i].push_back(t1mfs.gaussmf(aInputs[i], _uInputMatrix[i][_u_local_index], _uInputMatrix[i][_u_local_index + 1]));
 					_u_local_index += 7;
 				}
 			}
-		}// end of For all inputs for UB for upper bound
+		}// end of For all inputs for UB for upper bound or NT
 		_fuzzified_val = _u_fuzzified_val;
 	}//end of if set id ==1
-	if (aSetID == 2) {//if it it it2 ub system for lower bound
+	if (aSetID == 2) {//if it is it2 ub or NT system for lower bound
 		//create vector of vector storage place for fuzzified value of LMF
 		for (int i = 0; i < _numInputs; i++)
 		{
@@ -95,15 +95,15 @@ vector<vector<double> > fuzz::fuzzify(int aSetID, vector<double> aInputs) {
 			for (int j = 0; j < _numoflMFs; j++) {
 
 				if (_lInputMatrix[i][3] == 0) {
-					_l_fuzzified_val[i].push_back(tmf.returnMemVal(aInputs[i], _lInputMatrix[i][_l_local_index], _lInputMatrix[i][_l_local_index + 1], _lInputMatrix[i][_l_local_index + 2], _lInputMatrix[i][_l_local_index + 4]));
+					_l_fuzzified_val[i].push_back(t1mfs.trimf(aInputs[i], _lInputMatrix[i][_l_local_index], _lInputMatrix[i][_l_local_index + 1], _lInputMatrix[i][_l_local_index + 2], _lInputMatrix[i][_l_local_index + 4]));
 					_l_local_index += 7;
 				}
 				if (_lInputMatrix[i][3] == 1) {
-					_l_fuzzified_val[i].push_back(tpmf.returnMemVal(aInputs[i], _lInputMatrix[i][_l_local_index], _lInputMatrix[i][_l_local_index + 1], _lInputMatrix[i][_l_local_index + 2], _lInputMatrix[i][_l_local_index + 3], _lInputMatrix[i][_l_local_index + 4]));
+					_l_fuzzified_val[i].push_back(t1mfs.trapmf(aInputs[i], _lInputMatrix[i][_l_local_index], _lInputMatrix[i][_l_local_index + 1], _lInputMatrix[i][_l_local_index + 2], _lInputMatrix[i][_l_local_index + 3], _lInputMatrix[i][_l_local_index + 4]));
 					_l_local_index += 7;
 				}
 				if (_lInputMatrix[i][3] == 2) {
-					_l_fuzzified_val[i].push_back(gmf.returnMemVal(aInputs[i], _lInputMatrix[i][_l_local_index], _lInputMatrix[i][_l_local_index + 1], _lInputMatrix[i][_l_local_index + 4]));
+					_l_fuzzified_val[i].push_back(t1mfs.gaussmf(aInputs[i], _lInputMatrix[i][_l_local_index], _lInputMatrix[i][_l_local_index + 1]));
 					_l_local_index += 7;
 				}
 			}

@@ -7,30 +7,24 @@
 #include "trapMF.h"
 #include "T2_MF.h"
 
+#include "type1mfs.h"
+
 using namespace std;
 
 #ifndef __fuzz_h__
 #define __fuzz_h__
 
-// #include "gaussMF.h"
-// #include "triMF.h"
-// #include "trapMF.h"
-// #include "T2_MF.h"
 
-class gaussMF;
-class triMF;
-class trapMF;
-class T2_MF;
 class fuzz;
+
+class type1mfs;
 
 /**
  * This class initially reads parameters defined by a user. This class then accepts inputs and calculates membership values for each inputs corresponding membership functions. The information is passed as a structure with assigned attribute values to be used by the inference system.
  */
 class fuzz
 {	
-	 gaussMF gmf;
-	 triMF tmf;
-	 trapMF tpmf;
+	 type1mfs t1mfs;
 
 	private: int _numofuMFs;
 	private: int _numoflMFs;

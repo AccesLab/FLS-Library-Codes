@@ -4,13 +4,13 @@
 //#include "fuzzyparam.h"
 //#include "fuzzyParam.h"
 //#include "fuzzy.h"
-#include "FLS.h"
+#include "flslib.h"
 #include <ctime>
 
 using namespace std;
 
 //fuzzy fuz;
-FLS fuz;
+flslib fuz;
 
 int main() {
 	clock_t begin = clock();
@@ -19,7 +19,7 @@ int main() {
 	/*fuz.fuzzify();
 	fuz.infer();
 	fuz.defuzzify();*/
-	vector<double> input = { 0.1,0.2,0.3 };
+	vector<double> input = { 0.1,1.2,10.3 };
 	vector<double> output;
 	output = fuz.runFuzzy(input);
 	cout << output[0] <<endl;

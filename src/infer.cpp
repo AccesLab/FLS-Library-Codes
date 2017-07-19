@@ -10,8 +10,10 @@ infer::~infer() {
 }
 
 vector<double> infer::firingLevel(vector<vector<double> > aFuzzified_val) {
+	_firing_level.clear();
 	//find cartesian product
 	_cartesian = { {} };
+	//_cartesian.clear();
 	/*vector<vector<double>> _tmp;
 	vector<vector<double>> _tmp3;
 	vector<vector<double>> _tmp4;*/
@@ -26,13 +28,13 @@ vector<double> infer::firingLevel(vector<vector<double> > aFuzzified_val) {
 			_cartesian.swap(_tmp2);
 		}
 		
-		/*for (size_t i = 0; i < _cartesian.size(); i++) {
+		for (size_t i = 0; i < _cartesian.size(); i++) {
 			for (size_t j = 0; j < _cartesian[i].size(); j++) {
 				cout << _cartesian[i][j] << "\t";
 			}
 			cout << std::endl;
 		}
-		cout << _cartesian.size() << "\t";*/
+		cout << _cartesian.size() << "\t";
 
 	//find t norm, s norm 
 		if (_andMethod == "min") {

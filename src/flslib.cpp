@@ -4,18 +4,18 @@
 
 using namespace std;
 
-#include "FLS.h"
+#include "flslib.h"
 
-FLS::FLS() {}
-FLS::~FLS() {}
+flslib::flslib() {}
+flslib::~flslib() {}
 
-void FLS::getParams() {
+void flslib::getParams() {
 	throw "Not yet implemented";
 }
 
-vector<double> FLS::runFuzzy(vector<double> aInputs) {
+vector<double> flslib::runFuzzy(vector<double> aInputs) {
 	if (_type == "T1") {
-		if (_inference == "sugno") {
+		if (_inference == "TSK") {
 			_fuzzVal = _fuz.fuzzify(0, aInputs);
 			_firingLevel = _infr.firingLevel(_fuzzVal);
 			_output = _defuz.t1_tsk(aInputs, _firingLevel);
@@ -30,7 +30,7 @@ vector<double> FLS::runFuzzy(vector<double> aInputs) {
 		else { throw "Not yet implemented"; }
 	}
 	if (_type == "IT2") {
-		if (_inference == "sugno") {
+		if (_inference == "TSK") {
 			if (_defuzzMethod == "UB") {
 				_umf_fuzzVal = _fuz.fuzzify(1, aInputs);
 				_lmf_fuzzVal = _fuz.fuzzify(2, aInputs);
@@ -53,7 +53,7 @@ vector<double> FLS::runFuzzy(vector<double> aInputs) {
 		else { throw "Not yet implemented"; }
 	}
 	if (_type == "T2") {
-		if (_inference == "sugno") {
+		if (_inference == "TSK") {
 			throw "Not yet implemented";
 		}
 		else { throw "Not yet implemented"; }

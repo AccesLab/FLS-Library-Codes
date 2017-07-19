@@ -107,15 +107,178 @@ vector<double> defuzz::ub(vector<double> aInput, vector<double> aUfiring_level, 
 	return _y_crisp;
 }
 
+vector<double> defuzz::centroid(vector<double> aInput, vector<double> aFiring_level) {
+	//for all outputs, get the crisp output using UB
+	for (int _out = 0; _out < _numOutputs; _out++) {
+		
+		int _local_index = 4;
+		int _numofMFs = _OutputMatrix[_out][2];
+		double _temp =  0, _temp2 = 0, _temp3 = 0;
+		double _aggSet[_precision] = { 0 };
+		double _quantization = (_OutputMatrix[_out][1] - _OutputMatrix[_out][0]) / _precision;//descritize the output range
+		double _outputSet[_numRules][_precision] = { 0 }; //fill the array with 0
+		
+		//fill the output matrix
+		for (int _r = 0; _r < _numRules; _r++) {
+			if (aFiring_level[_r] != 0) {
+				for (double _decreteVal = _OutputMatrix[_out][0], _row = 0; _decreteVal <= _OutputMatrix[_out][1]; _decreteVal + _quantization, _row++)
+				{
+					//find the membership value
+					if (_OutputMatrix[_out][3] == 0) {
+						_temp = t1mfs.trimf(_decreteVal, _OutputMatrix[_out][_local_index], _OutputMatrix[_out][_local_index + 1], _OutputMatrix[_out][_local_index + 2], _OutputMatrix[_out][_local_index + 4]);
+						_local_index += 7;
+					}
+					if (_OutputMatrix[_out][3] == 1) {
+						_temp = t1mfs.trapmf(_decreteVal, _OutputMatrix[_out][_local_index], _OutputMatrix[_out][_local_index + 1], _OutputMatrix[_out][_local_index + 2], _OutputMatrix[_out][_local_index + 3], _OutputMatrix[_out][_local_index + 4]);
+						_local_index += 7;
+					}
+					if (_OutputMatrix[_out][3] == 2) {
+						_temp = t1mfs.gaussmf(_decreteVal, _OutputMatrix[_out][_local_index], _OutputMatrix[_out][_local_index + 1]);
+						_local_index += 7;
+					}
+					
+					//do clipping
+					if (_temp >= aFiring_level[_r]) {
+						_outputSet[_r][int(_row)] = aFiring_level[_r];
+					}
+					else { _outputSet[_r][int(_row)] = _temp; }
+				}
+			}
+		}
+		//Find the Aggregate Set
+		for (int i = 0; i < _precision; i ++) {
+			for (int _r = 0; _r < _numRules - 1; _r++) {
+				_aggSet[i] = max(_outputSet[_r][i], _outputSet[_r + 1][i]);
+			}
+		}
+
+		//Do Centroid Defuzzification
+		for (double _decreteVal = _OutputMatrix[_out][0], _row = 0; _decreteVal < _OutputMatrix[_out][1]; _decreteVal + _quantization, _row++)
+		{
+			_temp2 = _temp2 + (_decreteVal*_aggSet[int(_row)]);
+			_temp3 = _temp3 + _aggSet[int(_row)];
+		}
+
+		//Store the output
+		_y_crisp.push_back(_temp2 / _temp3);
+	}//end of for all outputs
+
+	return _y_crisp;
+}
+
+vector<double> defuzz::nt(vector<double> aInput, vector<double> _umf_firingLevel, vector<double> _lmf_firingLevel) {
+	//for all outputs, get the crisp output using UB
+	for (int _out = 0; _out < _numOutputs; _out++) {
+
+		int _local_index = 4;
+		int _numofMFs = _uOutputMatrix[_out][2];
+		double _utemp = 0, _ltemp = 0, _temp2 = 0, _temp3 = 0;
+		double _uStar[_precision] = { 0 };
+		double _uaggSet[_precision] = { 0 };
+		double _laggSet[_precision] = { 0 };
+		double _quantization = (_uOutputMatrix[_out][1] - _uOutputMatrix[_out][0]) / _precision;//descritize the output range
+		double _uoutputSet[_numRules][_precision] = { 0 }; //fill the array with 0
+		double _loutputSet[_numRules][_precision] = { 0 }; //fill the array with 0
+
+		//fill the output matrix
+		for (int _r = 0; _r < _numRules; _r++) {
+			if (_umf_firingLevel[_r] != 0) {
+				for (double _decreteVal = _uOutputMatrix[_out][0], _row = 0; _decreteVal <= _uOutputMatrix[_out][1]; _decreteVal + _quantization, _row++)
+				{
+					//find the membership value
+					if (_uOutputMatrix[_out][3] == 0) {
+						_utemp = t1mfs.trimf(_decreteVal, _uOutputMatrix[_out][_local_index], _uOutputMatrix[_out][_local_index + 1], _uOutputMatrix[_out][_local_index + 2], _uOutputMatrix[_out][_local_index + 4]);
+						//_ltemp = t1mfs.trimf(_decreteVal, _lOutputMatrix[_out][_local_index], _lOutputMatrix[_out][_local_index + 1], _lOutputMatrix[_out][_local_index + 2], _lOutputMatrix[_out][_local_index + 4]);
+						_local_index += 7;
+					}
+					if (_uOutputMatrix[_out][3] == 1) {
+						_utemp = t1mfs.trapmf(_decreteVal, _uOutputMatrix[_out][_local_index], _uOutputMatrix[_out][_local_index + 1], _uOutputMatrix[_out][_local_index + 2], _uOutputMatrix[_out][_local_index + 3], _uOutputMatrix[_out][_local_index + 4]);
+						//_ltemp = t1mfs.trapmf(_decreteVal, _lOutputMatrix[_out][_local_index], _lOutputMatrix[_out][_local_index + 1], _lOutputMatrix[_out][_local_index + 2], _lOutputMatrix[_out][_local_index + 3], _lOutputMatrix[_out][_local_index + 4]);
+						_local_index += 7;
+					}
+					if (_uOutputMatrix[_out][3] == 2) {
+						_utemp = t1mfs.gaussmf(_decreteVal, _uOutputMatrix[_out][_local_index], _uOutputMatrix[_out][_local_index + 1]);
+						//_ltemp = t1mfs.gaussmf(_decreteVal, _lOutputMatrix[_out][_local_index], _lOutputMatrix[_out][_local_index + 1]);
+						_local_index += 7;
+					}
+
+					//do clipping
+					if (_utemp >= _umf_firingLevel[_r]) {
+						_uoutputSet[_r][int(_row)] = _umf_firingLevel[_r];
+					}
+					else {
+						_uoutputSet[_r][int(_row)] = _utemp;
+					}
+				}
+			}
+
+			if (_lmf_firingLevel[_r] != 0) {
+				for (double _decreteVal = _lOutputMatrix[_out][0], _row = 0; _decreteVal <= _lOutputMatrix[_out][1]; _decreteVal + _quantization, _row++)
+				{
+					//find the membership value
+					if (_uOutputMatrix[_out][3] == 0) {
+						//_utemp = t1mfs.trimf(_decreteVal, _uOutputMatrix[_out][_local_index], _uOutputMatrix[_out][_local_index + 1], _uOutputMatrix[_out][_local_index + 2], _uOutputMatrix[_out][_local_index + 4]);
+						_ltemp = t1mfs.trimf(_decreteVal, _lOutputMatrix[_out][_local_index], _lOutputMatrix[_out][_local_index + 1], _lOutputMatrix[_out][_local_index + 2], _lOutputMatrix[_out][_local_index + 4]);
+						_local_index += 7;
+					}
+					if (_uOutputMatrix[_out][3] == 1) {
+						//_utemp = t1mfs.trapmf(_decreteVal, _uOutputMatrix[_out][_local_index], _uOutputMatrix[_out][_local_index + 1], _uOutputMatrix[_out][_local_index + 2], _uOutputMatrix[_out][_local_index + 3], _uOutputMatrix[_out][_local_index + 4]);
+						_ltemp = t1mfs.trapmf(_decreteVal, _lOutputMatrix[_out][_local_index], _lOutputMatrix[_out][_local_index + 1], _lOutputMatrix[_out][_local_index + 2], _lOutputMatrix[_out][_local_index + 3], _lOutputMatrix[_out][_local_index + 4]);
+						_local_index += 7;
+					}
+					if (_uOutputMatrix[_out][3] == 2) {
+						//_utemp = t1mfs.gaussmf(_decreteVal, _uOutputMatrix[_out][_local_index], _uOutputMatrix[_out][_local_index + 1]);
+						_ltemp = t1mfs.gaussmf(_decreteVal, _lOutputMatrix[_out][_local_index], _lOutputMatrix[_out][_local_index + 1]);
+						_local_index += 7;
+					}
+
+					//do clipping
+					if (_ltemp >= _lmf_firingLevel[_r]) {
+						_loutputSet[_r][int(_row)] = _lmf_firingLevel[_r];
+					}
+					else {
+						_loutputSet[_r][int(_row)] = _ltemp;
+					}
+				}
+			}
+		}
+		//Find the Aggregate Set
+		for (int i = 0; i < _precision; i++) {
+			for (int _r = 0; _r < _numRules - 1; _r++) {
+				_uaggSet[i] = max(_uoutputSet[_r][i], _uoutputSet[_r + 1][i]);
+			}
+		}
+
+		for (int i = 0; i < _precision; i++) {
+			for (int _r = 0; _r < _numRules - 1; _r++) {
+				_laggSet[i] = max(_loutputSet[_r][i], _loutputSet[_r + 1][i]);
+			}
+		}
+
+		for (int i = 0; i < _precision; i++) {
+			_uStar[i] = (_uaggSet[i] + _laggSet[i]) / 2;
+		}
+		//Do Defuzzification
+		for (double _decreteVal = _OutputMatrix[_out][0], _row = 0; _decreteVal < _OutputMatrix[_out][1]; _decreteVal + _quantization, _row++)
+		{
+			_temp2 = _temp2 + (_decreteVal*_uStar[int(_row)]);
+			_temp3 = _temp3 + _uStar[int(_row)];
+		}
+
+		//Store the output
+		if (_temp3 != 0){
+			_y_crisp.push_back(_temp2 / _temp3);
+		}
+		else {
+			_y_crisp.push_back(0);
+		}
+
+	}//end of for all outputs
+
+	return _y_crisp;
+}
+
 vector<double> defuzz::km() {
-	throw "Not yet implemented";
-}
-
-vector<double> defuzz::nt() {
-	throw "Not yet implemented";
-}
-
-vector<double> defuzz::centroid() {
 	throw "Not yet implemented";
 }
 
