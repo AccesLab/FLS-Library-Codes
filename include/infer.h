@@ -1,8 +1,10 @@
 //Author: Abel Teklu Hailemichael
+//athailem@aggies.ncat.edu
+//NCAT ACESS LAB
 
 #include <exception>
 #include <vector>
-#include "fuzzyparam.h"
+#include "flsconfig.h"
 using namespace std;
 
 #ifndef __infer_h__

@@ -1,4 +1,6 @@
 //Author: Abel Teklu Hilemichael
+//athailem@aggies.ncat.edu
+//NCAT ACESS LAB
 //This code returns the membership value for type 1 triangular trapezoidal and gaussina membership functions
 
 #include <exception>

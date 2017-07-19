@@ -1,4 +1,6 @@
 //Author: Abel Teklu Hilemichael
+//athailem@aggies.ncat.edu
+//NCAT ACESS LAB
 //The operation in this code returns the membership value for a type-2 MF
 
 #include <exception>

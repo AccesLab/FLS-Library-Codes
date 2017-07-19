@@ -1,4 +1,6 @@
 //Author: Abel Teklu Hailemichael
+//athailem@aggies.ncat.edu
+//NCAT ACESS LAB
 //When called, operations in this code return a fuzzy type 2 membership value
 
 #include <exception>

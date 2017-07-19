@@ -1,4 +1,6 @@
 //Author: Abel Teklu Hilemichael
+//athailem@aggies.ncat.edu
+//NCAT ACESS LAB
 //The operation in this code performs fuzzy inference operation. It receaves crisp inputs and returns crisp outputs
 
 #include <exception>

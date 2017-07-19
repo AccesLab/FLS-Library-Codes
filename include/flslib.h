@@ -1,8 +1,10 @@
 //Author: Abel Teklu Hilemichael
+//athailem@aggies.ncat.edu
+//NCAT ACESS LAB
 
 #include <exception>
 #include <vector>
-#include "fuzzyparam.h"
+#include "flsconfig.h"
 #include "fuzz.h"
 #include "infer.h"
 #include "defuzz.h"

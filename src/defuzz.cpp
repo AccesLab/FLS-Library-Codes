@@ -1,4 +1,6 @@
 //Author: Abel Teklu Hilemichael
+//athailem@aggies.ncat.edu
+//NCAT ACESS LAB
 //This code performs defuzzification for type-1 and tpe-2 FLSs for TSK and Mamdani FLSs
 
 #include <exception>

@@ -1,4 +1,6 @@
 //Author: Abel Teklu Hilemichael
+//athailem@aggies.ncat.edu
+//NCAT ACESS LAB
 //The operation in this code performs fuzzy inference operations and returns firing level
 
 #include <exception>
