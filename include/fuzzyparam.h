@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 #ifndef _numInputs
 #define _numInputs 3
 #endif

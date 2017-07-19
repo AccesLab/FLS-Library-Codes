@@ -1,3 +1,5 @@
+//Author: Abel Teklu Hailemichael
+
 #include <exception>
 #include <vector>
 #include "fuzzyparam.h"

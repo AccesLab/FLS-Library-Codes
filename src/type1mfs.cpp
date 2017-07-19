@@ -1,3 +1,5 @@
+//Author: Abel Teklu Hilemichael
+
 #include <exception>
 using namespace std;
 
@@ -47,7 +49,7 @@ double type1mfs::trapmf(double aInput, double aP1, double aP2, double aP3, doubl
 
 	return _mfVal;
 }
-
+//p1 mean, p2 sd
 double type1mfs::gaussmf(double aInput, double aP1, double aP2) {
-	return (exp((-pow((aInput - aP2), 2)) / (2 * (pow(aP1, 2)))));
+	return (exp((-pow((aInput - aP1), 2)) / (2 * (pow(aP2, 2)))));
 }
