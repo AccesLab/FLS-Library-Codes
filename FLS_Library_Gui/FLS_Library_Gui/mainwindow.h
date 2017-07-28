@@ -1,9 +1,11 @@
+//Author:- Abel Teklu Hailemichael, athailem@aggies.ncat.edu
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "inputdialog.h"
-#include "outputdialog.h"
+#include "intabledialog.h"
+#include "outtabledialog.h"
 #include "ruledialog.h"
 
 namespace Ui {
@@ -24,6 +26,10 @@ private slots:
     void on_pushButton_3_released();
 
     void on_pushButton_4_released();
+
+    void on_buttonBox_accepted();
+
+    void on_buttonBox_rejected();
 
 private:
     Ui::MainWindow *ui;

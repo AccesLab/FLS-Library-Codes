@@ -1,3 +1,5 @@
+//Author:- Abel Teklu Hailemichael, athailem@aggies.ncat.edu
+
 #ifndef INMFSDIALOG_H
 #define INMFSDIALOG_H
 

@@ -1,3 +1,5 @@
+//Author:- Abel Teklu Hailemichael, athailem@aggies.ncat.edu
+
 #include "inmfsdialog.h"
 #include "ui_inmfsdialog.h"
 
@@ -23,30 +25,30 @@ void inMFsDialog::on_buttonBox_rejected()
     reject();
 }
 
-QString imfName() const{
+QString inMFsDialog::imfName() const{
     return ui->inMFname->text();
 }
 
-QString imfType() const{
-
+QString inMFsDialog::imfType() const{
+    return ui->inMFtype->text();
 }
 
-double imfp1() const{
-
+double inMFsDialog::imfp1() const{
+    return ui->inMFP1->value();
 }
 
-double imfp2() const{
-
+double inMFsDialog::imfp2() const{
+    return ui->inMFP2->value();
 }
 
-double imfp3() const{
-
+double inMFsDialog::imfp3() const{
+    return ui->inMFP3->value();
 }
 
-double imfp4() const{
-
+double inMFsDialog::imfp4() const{
+    return ui->inMFP4->value();
 }
 
-double imfMax() const{
-
+double inMFsDialog::imfMax() const{
+    return ui->inMFmax->value();
 }

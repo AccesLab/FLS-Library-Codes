@@ -1,3 +1,5 @@
+//Author:- Abel Teklu Hailemichael, athailem@aggies.ncat.edu
+
 #ifndef RULEDIALOG_H
 #define RULEDIALOG_H
 
@@ -16,8 +18,18 @@ public:
     explicit ruleDialog(QWidget *parent = 0);
     ~ruleDialog();
 
+private slots:
+    void on_buttonBox_accepted();
+
+    void on_buttonBox_rejected();
+
+    void on_pushButton_released();
+
 private:
     Ui::ruleDialog *ui;
+    enum column{
+        Anticident, Conseqient, AndOr
+    };
 };
 
 #endif // RULEDIALOG_H

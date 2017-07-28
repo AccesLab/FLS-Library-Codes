@@ -1,3 +1,5 @@
+//Author:- Abel Teklu Hailemichael, athailem@aggies.ncat.edu
+
 #ifndef ADDRULESDIALOG_H
 #define ADDRULESDIALOG_H
 
@@ -14,6 +16,15 @@ class addrulesDialog : public QDialog
 public:
     explicit addrulesDialog(QWidget *parent = 0);
     ~addrulesDialog();
+
+    QString anticident() const;
+    QString consequent() const;
+    QString andor() const;
+
+private slots:
+    void on_buttonBox_accepted();
+
+    void on_buttonBox_rejected();
 
 private:
     Ui::addrulesDialog *ui;

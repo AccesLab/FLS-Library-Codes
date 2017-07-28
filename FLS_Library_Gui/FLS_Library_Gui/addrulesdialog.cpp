@@ -1,3 +1,5 @@
+//Author:- Abel Teklu Hailemichael, athailem@aggies.ncat.edu
+
 #include "addrulesdialog.h"
 #include "ui_addrulesdialog.h"
 
@@ -11,4 +13,23 @@ addrulesDialog::addrulesDialog(QWidget *parent) :
 addrulesDialog::~addrulesDialog()
 {
     delete ui;
+}
+
+QString addrulesDialog::anticident() const{
+    return ui->anticident->text();
+}
+QString addrulesDialog::consequent() const{
+    return ui->consequent->text();
+}
+QString addrulesDialog::andor() const{
+    return ui->andor->text();
+}
+void addrulesDialog::on_buttonBox_accepted()
+{
+    accept();
+}
+
+void addrulesDialog::on_buttonBox_rejected()
+{
+    reject();
 }

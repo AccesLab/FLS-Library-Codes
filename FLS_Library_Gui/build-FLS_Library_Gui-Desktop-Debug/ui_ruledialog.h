@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'ruledialog.ui'
 **
-** Created by: Qt User Interface Compiler version 5.2.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -16,6 +16,8 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QTableWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -23,16 +25,25 @@ class Ui_ruleDialog
 {
 public:
     QDialogButtonBox *buttonBox;
+    QTableWidget *tableWidget;
+    QPushButton *pushButton;
 
     void setupUi(QDialog *ruleDialog)
     {
         if (ruleDialog->objectName().isEmpty())
             ruleDialog->setObjectName(QStringLiteral("ruleDialog"));
-        ruleDialog->resize(400, 300);
+        ruleDialog->resize(623, 523);
         buttonBox = new QDialogButtonBox(ruleDialog);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
-        buttonBox->setGeometry(QRect(110, 260, 176, 27));
+        buttonBox->setGeometry(QRect(440, 490, 176, 27));
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        tableWidget = new QTableWidget(ruleDialog);
+        tableWidget->setObjectName(QStringLiteral("tableWidget"));
+        tableWidget->setGeometry(QRect(10, 10, 601, 441));
+        tableWidget->horizontalHeader()->setDefaultSectionSize(200);
+        pushButton = new QPushButton(ruleDialog);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setGeometry(QRect(10, 460, 99, 27));
 
         retranslateUi(ruleDialog);
 
@@ -42,6 +53,7 @@ public:
     void retranslateUi(QDialog *ruleDialog)
     {
         ruleDialog->setWindowTitle(QApplication::translate("ruleDialog", "Dialog", 0));
+        pushButton->setText(QApplication::translate("ruleDialog", "Add Rule", 0));
     } // retranslateUi
 
 };

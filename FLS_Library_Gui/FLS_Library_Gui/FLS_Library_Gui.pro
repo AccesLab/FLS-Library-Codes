@@ -19,7 +19,9 @@ SOURCES += main.cpp\
     ruledialog.cpp \
     inmfsdialog.cpp \
     outmfsdialog.cpp \
-    addrulesdialog.cpp
+    addrulesdialog.cpp \
+    intabledialog.cpp \
+    outtabledialog.cpp
 
 HEADERS  += mainwindow.h \
     inputdialog.h \
@@ -27,7 +29,9 @@ HEADERS  += mainwindow.h \
     ruledialog.h \
     inmfsdialog.h \
     outmfsdialog.h \
-    addrulesdialog.h
+    addrulesdialog.h \
+    intabledialog.h \
+    outtabledialog.h
 
 FORMS    += mainwindow.ui \
     inputdialog.ui \
@@ -35,4 +39,6 @@ FORMS    += mainwindow.ui \
     ruledialog.ui \
     inmfsdialog.ui \
     outmfsdialog.ui \
-    addrulesdialog.ui
+    addrulesdialog.ui \
+    intabledialog.ui \
+    outtabledialog.ui

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>526</width>
-    <height>372</height>
+    <width>506</width>
+    <height>377</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <widget class="QLabel" name="label_atpic">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>217</x>
       <y>8</y>
       <width>131</width>
       <height>101</height>
@@ -30,7 +30,7 @@
    <widget class="QLabel" name="label_acpic">
     <property name="geometry">
      <rect>
-      <x>390</x>
+      <x>358</x>
       <y>8</y>
       <width>131</width>
       <height>101</height>
@@ -40,29 +40,23 @@
      <string/>
     </property>
    </widget>
-   <widget class="QDialogButtonBox" name="buttonBox">
-    <property name="geometry">
-     <rect>
-      <x>186</x>
-      <y>310</y>
-      <width>176</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="standardButtons">
-     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-    </property>
-   </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>6</y>
-      <width>134</width>
-      <height>52</height>
+      <width>141</width>
+      <height>70</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QRadioButton" name="radioButton">
        <property name="text">
@@ -77,15 +71,22 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="Line" name="line_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>293</x>
       <y>133</y>
       <width>201</width>
-      <height>97</height>
+      <height>130</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -109,6 +110,13 @@
         <widget class="QLabel" name="label">
          <property name="text">
           <string>Agg. Method</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>FLS Number</string>
          </property>
         </widget>
        </item>
@@ -153,20 +161,34 @@
          </item>
         </widget>
        </item>
+       <item>
+        <widget class="QSpinBox" name="spinBox">
+         <property name="maximum">
+          <number>99999999</number>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>68</y>
-      <width>95</width>
-      <height>52</height>
+      <width>141</width>
+      <height>70</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="Line" name="line_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QRadioButton" name="radioButton_4">
        <property name="text">
@@ -181,14 +203,21 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="Line" name="line_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>272</y>
-      <width>299</width>
+      <width>481</width>
       <height>29</height>
      </rect>
     </property>
@@ -216,7 +245,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>11</x>
@@ -291,6 +320,19 @@
       </layout>
      </item>
     </layout>
+   </widget>
+   <widget class="QDialogButtonBox" name="buttonBox">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>310</y>
+      <width>176</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="standardButtons">
+     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+    </property>
    </widget>
   </widget>
   <widget class="QToolBar" name="mainToolBar">

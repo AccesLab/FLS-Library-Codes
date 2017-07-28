@@ -1,3 +1,5 @@
+//Author:- Abel Teklu Hailemichael, athailem@aggies.ncat.edu
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -22,18 +24,18 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_2_released()
 {
-    inputDialog indialog;
-    indialog.setWindowTitle("Add FLS Input Port");
-    indialog.setModal(true);
-    indialog.exec();
+    intableDialog intdialog;
+    intdialog.setWindowTitle("Add FLS Input");
+    intdialog.setModal(true);
+    intdialog.exec();
 }
 
 void MainWindow::on_pushButton_3_released()
 {
-    outputDialog outdialog;
-    outdialog.setWindowTitle("Add FLS Output Port");
-    outdialog.setModal(true);
-    outdialog.exec();
+    outtableDialog outtdialog;
+    outtdialog.setWindowTitle("Add FLS Output");
+    outtdialog.setModal(true);
+    outtdialog.exec();
 }
 
 void MainWindow::on_pushButton_4_released()
@@ -42,4 +44,15 @@ void MainWindow::on_pushButton_4_released()
     rdialog.setWindowTitle("Add FLS Rule");
     rdialog.setModal(true);
     rdialog.exec();
+}
+
+void MainWindow::on_buttonBox_accepted()
+{
+    acceptDrops();
+    close();
+}
+
+void MainWindow::on_buttonBox_rejected()
+{
+    close();
 }

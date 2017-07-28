@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'outmfsdialog.ui'
 **
-** Created by: Qt User Interface Compiler version 5.2.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -33,28 +33,32 @@ public:
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
     QLabel *label;
+    QLabel *label_7;
     QLabel *label_2;
     QLabel *label_3;
     QLabel *label_4;
     QLabel *label_5;
     QLabel *label_6;
+    QLabel *label_8;
     QVBoxLayout *verticalLayout_2;
     QLineEdit *outMFname;
+    QLineEdit *outMFtype;
     QDoubleSpinBox *outMFP1;
     QDoubleSpinBox *outMFP2;
     QDoubleSpinBox *outMFP3;
     QDoubleSpinBox *outMFP4;
     QDoubleSpinBox *outMFmax;
-    QDialogButtonBox *buttonBox_2;
+    QLineEdit *outTSKC;
+    QDialogButtonBox *buttonBox;
 
     void setupUi(QDialog *outMFsDialog)
     {
         if (outMFsDialog->objectName().isEmpty())
             outMFsDialog->setObjectName(QStringLiteral("outMFsDialog"));
-        outMFsDialog->resize(280, 280);
+        outMFsDialog->resize(455, 306);
         layoutWidget = new QWidget(outMFsDialog);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(13, 9, 257, 264));
+        layoutWidget->setGeometry(QRect(7, 5, 441, 297));
         verticalLayout_3 = new QVBoxLayout(layoutWidget);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
@@ -66,6 +70,11 @@ public:
         label->setObjectName(QStringLiteral("label"));
 
         verticalLayout->addWidget(label);
+
+        label_7 = new QLabel(layoutWidget);
+        label_7->setObjectName(QStringLiteral("label_7"));
+
+        verticalLayout->addWidget(label_7);
 
         label_2 = new QLabel(layoutWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
@@ -92,6 +101,11 @@ public:
 
         verticalLayout->addWidget(label_6);
 
+        label_8 = new QLabel(layoutWidget);
+        label_8->setObjectName(QStringLiteral("label_8"));
+
+        verticalLayout->addWidget(label_8);
+
 
         horizontalLayout->addLayout(verticalLayout);
 
@@ -102,30 +116,45 @@ public:
 
         verticalLayout_2->addWidget(outMFname);
 
+        outMFtype = new QLineEdit(layoutWidget);
+        outMFtype->setObjectName(QStringLiteral("outMFtype"));
+
+        verticalLayout_2->addWidget(outMFtype);
+
         outMFP1 = new QDoubleSpinBox(layoutWidget);
         outMFP1->setObjectName(QStringLiteral("outMFP1"));
+        outMFP1->setMaximum(1e+07);
 
         verticalLayout_2->addWidget(outMFP1);
 
         outMFP2 = new QDoubleSpinBox(layoutWidget);
         outMFP2->setObjectName(QStringLiteral("outMFP2"));
+        outMFP2->setMaximum(1e+07);
 
         verticalLayout_2->addWidget(outMFP2);
 
         outMFP3 = new QDoubleSpinBox(layoutWidget);
         outMFP3->setObjectName(QStringLiteral("outMFP3"));
+        outMFP3->setMaximum(1e+07);
 
         verticalLayout_2->addWidget(outMFP3);
 
         outMFP4 = new QDoubleSpinBox(layoutWidget);
         outMFP4->setObjectName(QStringLiteral("outMFP4"));
+        outMFP4->setMaximum(1e+07);
 
         verticalLayout_2->addWidget(outMFP4);
 
         outMFmax = new QDoubleSpinBox(layoutWidget);
         outMFmax->setObjectName(QStringLiteral("outMFmax"));
+        outMFmax->setMaximum(1);
 
         verticalLayout_2->addWidget(outMFmax);
+
+        outTSKC = new QLineEdit(layoutWidget);
+        outTSKC->setObjectName(QStringLiteral("outTSKC"));
+
+        verticalLayout_2->addWidget(outTSKC);
 
 
         horizontalLayout->addLayout(verticalLayout_2);
@@ -133,11 +162,11 @@ public:
 
         verticalLayout_3->addLayout(horizontalLayout);
 
-        buttonBox_2 = new QDialogButtonBox(layoutWidget);
-        buttonBox_2->setObjectName(QStringLiteral("buttonBox_2"));
-        buttonBox_2->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        buttonBox = new QDialogButtonBox(layoutWidget);
+        buttonBox->setObjectName(QStringLiteral("buttonBox"));
+        buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
 
-        verticalLayout_3->addWidget(buttonBox_2);
+        verticalLayout_3->addWidget(buttonBox);
 
 
         retranslateUi(outMFsDialog);
@@ -149,11 +178,13 @@ public:
     {
         outMFsDialog->setWindowTitle(QApplication::translate("outMFsDialog", "Dialog", 0));
         label->setText(QApplication::translate("outMFsDialog", "Name", 0));
+        label_7->setText(QApplication::translate("outMFsDialog", "Type", 0));
         label_2->setText(QApplication::translate("outMFsDialog", "P1", 0));
         label_3->setText(QApplication::translate("outMFsDialog", "P2", 0));
         label_4->setText(QApplication::translate("outMFsDialog", "P3", 0));
         label_5->setText(QApplication::translate("outMFsDialog", "P4", 0));
         label_6->setText(QApplication::translate("outMFsDialog", "Maximum", 0));
+        label_8->setText(QApplication::translate("outMFsDialog", "TSK Coefficients", 0));
     } // retranslateUi
 
 };

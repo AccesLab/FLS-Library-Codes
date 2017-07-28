@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'inputdialog.ui'
 **
-** Created by: Qt User Interface Compiler version 5.2.1
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -21,6 +21,7 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -32,7 +33,7 @@ class Ui_inputDialog
 public:
     QTableWidget *inMFtable;
     QDialogButtonBox *buttonBox;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout_2;
     QLabel *label;
@@ -41,8 +42,8 @@ public:
     QVBoxLayout *verticalLayout;
     QLineEdit *inname;
     QLineEdit *inrange;
-    QLineEdit *numMFs;
-    QWidget *widget1;
+    QSpinBox *numMFs;
+    QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *addMF;
     QSpacerItem *horizontalSpacer;
@@ -51,33 +52,33 @@ public:
     {
         if (inputDialog->objectName().isEmpty())
             inputDialog->setObjectName(QStringLiteral("inputDialog"));
-        inputDialog->resize(400, 378);
+        inputDialog->resize(718, 378);
         inMFtable = new QTableWidget(inputDialog);
         inMFtable->setObjectName(QStringLiteral("inMFtable"));
-        inMFtable->setGeometry(QRect(10, 113, 381, 192));
+        inMFtable->setGeometry(QRect(10, 113, 701, 192));
         buttonBox = new QDialogButtonBox(inputDialog);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
-        buttonBox->setGeometry(QRect(220, 340, 176, 27));
+        buttonBox->setGeometry(QRect(540, 340, 176, 27));
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
-        widget = new QWidget(inputDialog);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 10, 263, 97));
-        horizontalLayout = new QHBoxLayout(widget);
+        layoutWidget = new QWidget(inputDialog);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 10, 263, 101));
+        horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        label = new QLabel(widget);
+        label = new QLabel(layoutWidget);
         label->setObjectName(QStringLiteral("label"));
 
         verticalLayout_2->addWidget(label);
 
-        label_2 = new QLabel(widget);
+        label_2 = new QLabel(layoutWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         verticalLayout_2->addWidget(label_2);
 
-        label_3 = new QLabel(widget);
+        label_3 = new QLabel(layoutWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
 
         verticalLayout_2->addWidget(label_3);
@@ -87,31 +88,32 @@ public:
 
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        inname = new QLineEdit(widget);
+        inname = new QLineEdit(layoutWidget);
         inname->setObjectName(QStringLiteral("inname"));
 
         verticalLayout->addWidget(inname);
 
-        inrange = new QLineEdit(widget);
+        inrange = new QLineEdit(layoutWidget);
         inrange->setObjectName(QStringLiteral("inrange"));
 
         verticalLayout->addWidget(inrange);
 
-        numMFs = new QLineEdit(widget);
+        numMFs = new QSpinBox(layoutWidget);
         numMFs->setObjectName(QStringLiteral("numMFs"));
+        numMFs->setMaximum(9999999);
 
         verticalLayout->addWidget(numMFs);
 
 
         horizontalLayout->addLayout(verticalLayout);
 
-        widget1 = new QWidget(inputDialog);
-        widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(10, 310, 381, 29));
-        horizontalLayout_2 = new QHBoxLayout(widget1);
+        layoutWidget1 = new QWidget(inputDialog);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(10, 310, 701, 29));
+        horizontalLayout_2 = new QHBoxLayout(layoutWidget1);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        addMF = new QPushButton(widget1);
+        addMF = new QPushButton(layoutWidget1);
         addMF->setObjectName(QStringLiteral("addMF"));
 
         horizontalLayout_2->addWidget(addMF);
