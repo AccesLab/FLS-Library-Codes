@@ -9,11 +9,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setWindowTitle("ACCESS FLS Library");
+    setWindowTitle("Fuzzabel FLS Library");
 
-    QPixmap picat("NCA&T_Interlock_Lettermark.png");
-    ui->label_atpic->setPixmap(picat);
-    QPixmap picacs("accesslab.jpg");
+    //QPixmap picat("C:/Users/Abel/Documents/FLS Library Cui v2/FLS_Library_Gui/build-FLS_Library_Gui-Desktop-Debug/NCA&T_Interlock_Lettermark.png");
+    //ui->label_atpic->setPixmap(picat);
+    QPixmap picacs("C:/Users/Abel/Documents/FLS Library Cui v2/FLS_Library_Gui/build-FLS_Library_Gui-Desktop-Debug/accesslab.jpg");
     ui->label_acpic->setPixmap(picacs);
 }
 

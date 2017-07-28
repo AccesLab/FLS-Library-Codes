@@ -7,33 +7,20 @@
     <x>0</x>
     <y>0</y>
     <width>506</width>
-    <height>377</height>
+    <height>368</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLabel" name="label_atpic">
-    <property name="geometry">
-     <rect>
-      <x>217</x>
-      <y>8</y>
-      <width>131</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_acpic">
     <property name="geometry">
      <rect>
-      <x>358</x>
-      <y>8</y>
-      <width>131</width>
-      <height>101</height>
+      <x>320</x>
+      <y>0</y>
+      <width>171</width>
+      <height>131</height>
      </rect>
     </property>
     <property name="text">
@@ -332,6 +319,19 @@
     </property>
     <property name="standardButtons">
      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>310</y>
+      <width>301</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>North Carolina A &amp; T State University</string>
     </property>
    </widget>
   </widget>
