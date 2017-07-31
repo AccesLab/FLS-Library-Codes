@@ -148,6 +148,8 @@ public:
         outMFmax = new QDoubleSpinBox(layoutWidget);
         outMFmax->setObjectName(QStringLiteral("outMFmax"));
         outMFmax->setMaximum(1);
+        outMFmax->setSingleStep(0.1);
+        outMFmax->setValue(1);
 
         verticalLayout_2->addWidget(outMFmax);
 

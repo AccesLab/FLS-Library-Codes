@@ -298,6 +298,7 @@ public:
         doubleSpinBox_precisn = new QDoubleSpinBox(layoutWidget4);
         doubleSpinBox_precisn->setObjectName(QStringLiteral("doubleSpinBox_precisn"));
         doubleSpinBox_precisn->setMaximum(1e+6);
+        doubleSpinBox_precisn->setValue(100);
 
         verticalLayout_4->addWidget(doubleSpinBox_precisn);
 
