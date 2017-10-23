@@ -315,4 +315,3 @@ vector<double> defuzz::defuzzify(vector<double> aFiring_level, vector<double> aU
 	cout << "FLS Output "<< _y_crisp[0]<< endl;
 	return _y_crisp;
 }
-

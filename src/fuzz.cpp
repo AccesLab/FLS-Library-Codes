@@ -118,4 +118,3 @@ vector<vector<double> > fuzz::fuzzify(int aSetID, vector<double> aInputs) {
 	
 	return _fuzzified_val;
 }
-

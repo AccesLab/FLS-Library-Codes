@@ -19,4 +19,3 @@ T2_MF::~T2_MF() {
 vector<double> T2_MF::memVal() {
 	throw "Not yet implemented";
 }
-

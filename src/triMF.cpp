@@ -32,4 +32,3 @@ double triMF::returnMemVal(double aInput, double aA, double aB, double aC, doubl
 	
 		return _mfVal;
 }
-

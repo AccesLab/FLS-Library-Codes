@@ -33,4 +33,3 @@ double trapMF::returnMemVal(double aInput, double aA, double aB, double aC, doub
 	
 		return _mfVal;
 }
-

@@ -60,4 +60,3 @@ vector<double> infer::firingLevel(vector<vector<double> > aFuzzified_val) {
 		}
 		return _firing_level;
 }
-

@@ -65,4 +65,3 @@ vector<double> flslib::runFuzzy(vector<double> aInputs) {
 	}
 	return _output;
 }
-
