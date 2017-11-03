@@ -47,9 +47,9 @@ public: ~type1mfs();
 		/// <summary>
 		/// When called this function returns the membership of the input. It receives the input value, (model element not found), (model element not found), (model element not found) and (model element not found).
 		/// </summary>
-public: double trimf(double aInput, double aP1, double aP2, double aP3, double aMax);
-public: double trapmf(double aInput, double aP1, double aP2, double aP3, double aP4, double aMax);
-public: double gaussmf(double aInput, double aP1, double aP2);
+public: double trimf(double *aInput, double aP1, double aP2, double aP3, double aMax);
+public: double trapmf(double *aInput, double aP1, double aP2, double aP3, double aP4, double aMax);
+public: double gaussmf(double *aInput, double aP1, double aP2);
 };
 
 #endif

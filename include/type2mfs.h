@@ -4,6 +4,7 @@
 //When called, operations in this code return a fuzzy type 2 membership value
 
 #include <exception>
+#include <vector>
 using namespace std;
 
 #ifndef __type2mfs_h__
@@ -48,8 +49,7 @@ public: ~type2mfs();
 		/// <summary>
 		/// When called this function returns the membership of the input. It receives the input value, (model element not found), (model element not found), (model element not found) and (model element not found).
 		/// </summary>
-public: vector<double> gausst2mf(double aInput, double aP1, double aP2, double aP3);
+public: vector<double> gausst2mf(double *aInput, double aP1, double aP2, double aP3);
 };
 
 #endif
-

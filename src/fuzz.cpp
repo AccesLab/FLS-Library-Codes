@@ -9,112 +9,98 @@ using namespace std;
 
 #include "fuzz.h"
 
+
 fuzz::fuzz() {
-	_numofuMFs = 0;
-	_numoflMFs = 0;
-	_numofMFs = 0;
-	_u_local_index = 0;
-	_l_local_index = 0;
-	_local_index = 0;
 }
 fuzz::~fuzz() {
 }
 
-vector<vector<double> > fuzz::fuzzify(int aSetID, vector<double> aInputs) {
+vector<vector<double> > fuzz::fuzzify(vector<double> *aInputs, MainWindow_t *stData) {
+	/*MainWindow_t stData;
+	XMLReader Reader(&stData);
+	Reader.ReadXMLFile(QString(sFIleName_i.c_str()));
+	B->bInterval2 = 0;*/
+	//vector<double> Inputs = *aInputs;
+	_fuzzified_val.clear();
+	_l_fuzzified_val.clear();
+	_u_fuzzified_val.clear();
 
-	if (aSetID == 0) {//if it is t1 system
+	if (stData->bType1 == true) {//if it is t1 system
 					  //create vector of vector storage place for fuzzified value of LMF
-		for (int i = 0; i < _numInputs; i++)
+		for (int i = 0; i < stData->vstInputs.size(); i++)
 		{
 			_fuzzified_val.push_back(_row);
 		}
 		//For all inputs for T1
-		for (int i = 0; i < _numInputs; i++) {
+		for (int i = 0; i < stData->vstInputs.size(); i++) {
 
-			_local_index = 4;
-			_numofMFs = _InputMatrix[i][2];
+			//InputData_t stInput= stData->vstInputs[i];
 
 			//Fuzzify T1 MFs 
-			for (int j = 0; j < _numofMFs; j++) {
-				
-				if (_InputMatrix[i][3] == 0) {
-					_fuzzified_val[i].push_back(t1mfs.trimf(aInputs[i], _InputMatrix[i][_local_index], _InputMatrix[i][_local_index + 1], _InputMatrix[i][_local_index + 2], _InputMatrix[i][_local_index + 4]));
-					_local_index += 7;
+			for (int j = 0; j < stData->vstInputs[i].vstMF.size(); j++) {
+
+				//InputMF_t stMF = stData->vstInputs[i].vstMF[j];
+				if (stData->vstInputs[i].vstMF[j].sType == "tri") {
+					_fuzzified_val[i].push_back(t1mfs.trimf((double *)(&aInputs[i]), stData->vstInputs[i].vstMF[j].dP1, stData->vstInputs[i].vstMF[j].dP2, stData->vstInputs[i].vstMF[j].dP3, stData->vstInputs[i].vstMF[j].dMaximum));
 				}
-				if (_InputMatrix[i][3] == 1) {
-					_fuzzified_val[i].push_back(t1mfs.trapmf(aInputs[i], _InputMatrix[i][_local_index], _InputMatrix[i][_local_index + 1], _InputMatrix[i][_local_index + 2], _InputMatrix[i][_local_index + 3], _InputMatrix[i][_local_index + 4]));
-					_local_index += 7;
+				if (stData->vstInputs[i].vstMF[j].sType == "trap") {
+					_fuzzified_val[i].push_back(t1mfs.trapmf((double *)(&aInputs[i]), stData->vstInputs[i].vstMF[j].dP1, stData->vstInputs[i].vstMF[j].dP2, stData->vstInputs[i].vstMF[j].dP3, stData->vstInputs[i].vstMF[j].dP4, stData->vstInputs[i].vstMF[j].dMaximum));
 				}
-				if (_InputMatrix[i][3] == 2) {
-					_fuzzified_val[i].push_back(t1mfs.gaussmf(aInputs[i], _InputMatrix[i][_local_index], _InputMatrix[i][_local_index + 1]));
-					_local_index += 7;
+				if (stData->vstInputs[i].vstMF[j].sType == "gauss") {
+					_fuzzified_val[i].push_back(t1mfs.gaussmf((double *)(&aInputs[i]), stData->vstInputs[i].vstMF[j].dP1, stData->vstInputs[i].vstMF[j].dP2));
 				}
 			}
 		}// end of For all inputs for T1
-	}//end of if set id 0
-
-	if (aSetID == 1) {//if it it it2 ub system for upper bound or NT
-					  //create vector of vector storage place for fuzzified value of UMF
-		for (int i = 0; i < _numInputs; i++)
-		{
-			_u_fuzzified_val.push_back(_row);
-		}
-		
-		//For all inputs for UB
-		for (int i = 0; i < _numInputs; i++) {
-			_u_local_index = 4;
-			_numofuMFs = _uInputMatrix[i][2];
-
-			//Fuzzify UMFss
-			for (int j = 0; j < _numofuMFs; j++) {
-
-				if (_uInputMatrix[i][3] == 0) {
-					_u_fuzzified_val[i].push_back(t1mfs.trimf(aInputs[i], _uInputMatrix[i][_u_local_index], _uInputMatrix[i][_u_local_index + 1], _uInputMatrix[i][_u_local_index + 2], _uInputMatrix[i][_u_local_index + 4]));
-					_u_local_index += 7;
-				}
-				if (_uInputMatrix[i][3] == 1) {
-					_u_fuzzified_val[i].push_back(t1mfs.trapmf(aInputs[i], _uInputMatrix[i][_u_local_index], _uInputMatrix[i][_u_local_index + 1], _uInputMatrix[i][_u_local_index + 2], _uInputMatrix[i][_u_local_index + 3], _uInputMatrix[i][_u_local_index + 4]));
-					_u_local_index += 7;
-				}
-				if (_uInputMatrix[i][3] == 2) {
-					_u_fuzzified_val[i].push_back(t1mfs.gaussmf(aInputs[i], _uInputMatrix[i][_u_local_index], _uInputMatrix[i][_u_local_index + 1]));
-					_u_local_index += 7;
-				}
-			}
-		}// end of For all inputs for UB for upper bound or NT
-		_fuzzified_val = _u_fuzzified_val;
-	}//end of if set id ==1
-	if (aSetID == 2) {//if it is it2 ub or NT system for lower bound
-		//create vector of vector storage place for fuzzified value of LMF
-		for (int i = 0; i < _numInputs; i++)
-		{
-			_l_fuzzified_val.push_back(_row);
-		}
-		
-		//For all inputs for UB
-		for (int i = 0; i < _numInputs; i++) {
-			_l_local_index = 4;
-			_numoflMFs = _lInputMatrix[i][2];
-			
-			//Fuzzify LMFs
-			for (int j = 0; j < _numoflMFs; j++) {
-
-				if (_lInputMatrix[i][3] == 0) {
-					_l_fuzzified_val[i].push_back(t1mfs.trimf(aInputs[i], _lInputMatrix[i][_l_local_index], _lInputMatrix[i][_l_local_index + 1], _lInputMatrix[i][_l_local_index + 2], _lInputMatrix[i][_l_local_index + 4]));
-					_l_local_index += 7;
-				}
-				if (_lInputMatrix[i][3] == 1) {
-					_l_fuzzified_val[i].push_back(t1mfs.trapmf(aInputs[i], _lInputMatrix[i][_l_local_index], _lInputMatrix[i][_l_local_index + 1], _lInputMatrix[i][_l_local_index + 2], _lInputMatrix[i][_l_local_index + 3], _lInputMatrix[i][_l_local_index + 4]));
-					_l_local_index += 7;
-				}
-				if (_lInputMatrix[i][3] == 2) {
-					_l_fuzzified_val[i].push_back(t1mfs.gaussmf(aInputs[i], _lInputMatrix[i][_l_local_index], _lInputMatrix[i][_l_local_index + 1]));
-					_l_local_index += 7;
-				}
-			}
-		}// end of For all inputs for UB for lower bound
-		_fuzzified_val = _l_fuzzified_val;
-	}//end of if set id ==2
+	}//end of if type 1
+	
+	
 	
 	return _fuzzified_val;
+}
+
+vector<vector<vector<double>>> fuzz::fuzzifyt2(vector<double> *aInputs, MainWindow_t *stData)
+{
+	_fuzzified_valT2.clear();
+	_row.clear();
+	_u_fuzzified_val.clear();
+	_l_fuzzified_val.clear();
+
+		for (int i = 0; i < stData->vstInputs.size(); i++)
+		{
+			_u_fuzzified_val.push_back(_row);
+			_l_fuzzified_val.push_back(_row);
+		}
+
+		//For all inputs for UB
+		for (int i = 0; i < stData->vstInputs.size(); i++) {
+
+			//Fuzzify UMFss
+			for (int j = 0; j < stData->vstInputs[i].vstMF.size(); j++) {
+
+				//InputMF_t stMF = stData->vstInputs[i].vstMF[j];
+				if (stData->vstInputs[i].vstMF[j].sType == "utri") {
+					_u_fuzzified_val[i].push_back(t1mfs.trimf((double *)(&aInputs[i]), stData->vstInputs[i].vstMF[j].dP1, stData->vstInputs[i].vstMF[j].dP2, stData->vstInputs[i].vstMF[j].dP3, stData->vstInputs[i].vstMF[j].dMaximum));
+				}
+				if (stData->vstInputs[i].vstMF[j].sType == "utrap") {
+					_u_fuzzified_val[i].push_back(t1mfs.trapmf((double *)(&aInputs[i]), stData->vstInputs[i].vstMF[j].dP1, stData->vstInputs[i].vstMF[j].dP2, stData->vstInputs[i].vstMF[j].dP3, stData->vstInputs[i].vstMF[j].dP4, stData->vstInputs[i].vstMF[j].dMaximum));
+				}
+				if (stData->vstInputs[i].vstMF[j].sType == "ugauss") {
+					_u_fuzzified_val[i].push_back(t1mfs.gaussmf((double *)(&aInputs[i]), stData->vstInputs[i].vstMF[j].dP1, stData->vstInputs[i].vstMF[j].dP2));
+				}
+				if (stData->vstInputs[i].vstMF[j].sType == "ltri") {
+					_l_fuzzified_val[i].push_back(t1mfs.trimf((double *)(&aInputs[i]), stData->vstInputs[i].vstMF[j].dP1, stData->vstInputs[i].vstMF[j].dP2, stData->vstInputs[i].vstMF[j].dP3, stData->vstInputs[i].vstMF[j].dMaximum));
+				}
+				if (stData->vstInputs[i].vstMF[j].sType == "ltrap") {
+					_l_fuzzified_val[i].push_back(t1mfs.trapmf((double *)(&aInputs[i]), stData->vstInputs[i].vstMF[j].dP1, stData->vstInputs[i].vstMF[j].dP2, stData->vstInputs[i].vstMF[j].dP3, stData->vstInputs[i].vstMF[j].dP4, stData->vstInputs[i].vstMF[j].dMaximum));
+				}
+				if (stData->vstInputs[i].vstMF[j].sType == "lgauss") {
+					_l_fuzzified_val[i].push_back(t1mfs.gaussmf((double *)(&aInputs[i]), stData->vstInputs[i].vstMF[j].dP1, stData->vstInputs[i].vstMF[j].dP2));
+				}
+			}			
+		}// end of For all inputs for UB for upper bound or NT
+
+		_fuzzified_valT2.push_back(_u_fuzzified_val);
+		_fuzzified_valT2.push_back(_l_fuzzified_val);
+
+	return _fuzzified_valT2;
 }

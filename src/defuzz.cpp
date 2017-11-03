@@ -113,8 +113,9 @@ vector<double> defuzz::ub(vector<double> aInput, vector<double> aUfiring_level, 
 }
 
 vector<double> defuzz::centroid(vector<double> aInput, vector<double> aFiring_level) {
+	throw "not";
 	//for all outputs, get the crisp output using centroid defuzzification technique
-	for (int _out = 0; _out < _numOutputs; _out++) {
+/*	for (int _out = 0; _out < _numOutputs; _out++) {
 		
 		int _local_index = 4;
 		int _numofMFs = _OutputMatrix[_out][2];
@@ -168,7 +169,7 @@ vector<double> defuzz::centroid(vector<double> aInput, vector<double> aFiring_le
 		_y_crisp.push_back(_temp2 / _temp3);
 	}//end of for all outputs
 
-	return _y_crisp;
+	return _y_crisp;*/
 }
 
 vector<double> defuzz::nt(vector<double> aInput, vector<double> _umf_firingLevel, vector<double> _lmf_firingLevel) {
@@ -192,17 +193,17 @@ vector<double> defuzz::nt(vector<double> aInput, vector<double> _umf_firingLevel
 				{
 					//find the membership value
 					if (_uOutputMatrix[_out][3] == 0) {
-						_utemp = t1mfs.trimf(_decreteVal, _uOutputMatrix[_out][_local_index], _uOutputMatrix[_out][_local_index + 1], _uOutputMatrix[_out][_local_index + 2], _uOutputMatrix[_out][_local_index + 4]);
+						_utemp = t1mfs.trimf(&_decreteVal, _uOutputMatrix[_out][_local_index], _uOutputMatrix[_out][_local_index + 1], _uOutputMatrix[_out][_local_index + 2], _uOutputMatrix[_out][_local_index + 4]);
 						//_ltemp = t1mfs.trimf(_decreteVal, _lOutputMatrix[_out][_local_index], _lOutputMatrix[_out][_local_index + 1], _lOutputMatrix[_out][_local_index + 2], _lOutputMatrix[_out][_local_index + 4]);
 						_local_index += 7;
 					}
 					if (_uOutputMatrix[_out][3] == 1) {
-						_utemp = t1mfs.trapmf(_decreteVal, _uOutputMatrix[_out][_local_index], _uOutputMatrix[_out][_local_index + 1], _uOutputMatrix[_out][_local_index + 2], _uOutputMatrix[_out][_local_index + 3], _uOutputMatrix[_out][_local_index + 4]);
+						_utemp = t1mfs.trapmf(&_decreteVal, _uOutputMatrix[_out][_local_index], _uOutputMatrix[_out][_local_index + 1], _uOutputMatrix[_out][_local_index + 2], _uOutputMatrix[_out][_local_index + 3], _uOutputMatrix[_out][_local_index + 4]);
 						//_ltemp = t1mfs.trapmf(_decreteVal, _lOutputMatrix[_out][_local_index], _lOutputMatrix[_out][_local_index + 1], _lOutputMatrix[_out][_local_index + 2], _lOutputMatrix[_out][_local_index + 3], _lOutputMatrix[_out][_local_index + 4]);
 						_local_index += 7;
 					}
 					if (_uOutputMatrix[_out][3] == 2) {
-						_utemp = t1mfs.gaussmf(_decreteVal, _uOutputMatrix[_out][_local_index], _uOutputMatrix[_out][_local_index + 1]);
+						_utemp = t1mfs.gaussmf(&_decreteVal, _uOutputMatrix[_out][_local_index], _uOutputMatrix[_out][_local_index + 1]);
 						//_ltemp = t1mfs.gaussmf(_decreteVal, _lOutputMatrix[_out][_local_index], _lOutputMatrix[_out][_local_index + 1]);
 						_local_index += 7;
 					}
@@ -223,17 +224,17 @@ vector<double> defuzz::nt(vector<double> aInput, vector<double> _umf_firingLevel
 					//find the membership value
 					if (_uOutputMatrix[_out][3] == 0) {
 						//_utemp = t1mfs.trimf(_decreteVal, _uOutputMatrix[_out][_local_index], _uOutputMatrix[_out][_local_index + 1], _uOutputMatrix[_out][_local_index + 2], _uOutputMatrix[_out][_local_index + 4]);
-						_ltemp = t1mfs.trimf(_decreteVal, _lOutputMatrix[_out][_local_index], _lOutputMatrix[_out][_local_index + 1], _lOutputMatrix[_out][_local_index + 2], _lOutputMatrix[_out][_local_index + 4]);
+						_ltemp = t1mfs.trimf(&_decreteVal, _lOutputMatrix[_out][_local_index], _lOutputMatrix[_out][_local_index + 1], _lOutputMatrix[_out][_local_index + 2], _lOutputMatrix[_out][_local_index + 4]);
 						_local_index += 7;
 					}
 					if (_uOutputMatrix[_out][3] == 1) {
 						//_utemp = t1mfs.trapmf(_decreteVal, _uOutputMatrix[_out][_local_index], _uOutputMatrix[_out][_local_index + 1], _uOutputMatrix[_out][_local_index + 2], _uOutputMatrix[_out][_local_index + 3], _uOutputMatrix[_out][_local_index + 4]);
-						_ltemp = t1mfs.trapmf(_decreteVal, _lOutputMatrix[_out][_local_index], _lOutputMatrix[_out][_local_index + 1], _lOutputMatrix[_out][_local_index + 2], _lOutputMatrix[_out][_local_index + 3], _lOutputMatrix[_out][_local_index + 4]);
+						_ltemp = t1mfs.trapmf(&_decreteVal, _lOutputMatrix[_out][_local_index], _lOutputMatrix[_out][_local_index + 1], _lOutputMatrix[_out][_local_index + 2], _lOutputMatrix[_out][_local_index + 3], _lOutputMatrix[_out][_local_index + 4]);
 						_local_index += 7;
 					}
 					if (_uOutputMatrix[_out][3] == 2) {
 						//_utemp = t1mfs.gaussmf(_decreteVal, _uOutputMatrix[_out][_local_index], _uOutputMatrix[_out][_local_index + 1]);
-						_ltemp = t1mfs.gaussmf(_decreteVal, _lOutputMatrix[_out][_local_index], _lOutputMatrix[_out][_local_index + 1]);
+						_ltemp = t1mfs.gaussmf(&_decreteVal, _lOutputMatrix[_out][_local_index], _lOutputMatrix[_out][_local_index + 1]);
 						_local_index += 7;
 					}
 

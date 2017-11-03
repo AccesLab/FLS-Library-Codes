@@ -10,6 +10,8 @@
 #include "triMF.h"
 #include "trapMF.h"
 #include "T2_MF.h"
+#include "commondef.h"
+#include "XMLReader.h"
 
 #include "type1mfs.h"
 
@@ -18,6 +20,7 @@ using namespace std;
 #ifndef __fuzz_h__
 #define __fuzz_h__
 
+struct MainWindow_t;
 
 class fuzz;
 
@@ -28,7 +31,8 @@ class type1mfs;
  */
 class fuzz
 {	
-	 type1mfs t1mfs;
+	type1mfs t1mfs;
+	//MainWindow_t stSysData;
 
 	private: int _numofuMFs;
 	private: int _numoflMFs;
@@ -39,19 +43,18 @@ class fuzz
 	private: vector<vector<double> > _u_fuzzified_val;
 	private: vector<vector<double> > _l_fuzzified_val;
 	private: vector<vector<double> > _fuzzified_val;
+	private: vector<vector<vector<double>>> _fuzzified_valT2;
 	private: vector<double> _row;
-	public: gaussMF* _unnamed_gaussMF_;
-	public: triMF* _unnamed_triMF_;
-	public: trapMF* _unnamed_trapMF_;
-	public: T2_MF* _unnamed_T2_MF_;
-
+			 
 	public: fuzz();
 	public: ~fuzz();
 
 	/// <summary>
 	/// This operation fuzzifies the inputs using the membership function classes. For each membership function defined by (model element not found), it generates the primary membership value for all inputs. The membership values are stored and passed as a pointer to vector.
 	/// </summary>
-	public: vector<vector<double> > fuzzify(int aSetID, vector<double> aInputs);
+	public: vector<vector<double> > fuzzify(vector<double> *aInputs, MainWindow_t *stData);
+	public:	vector<vector<vector<double>>> fuzzifyt2(vector<double> *aInputs, MainWindow_t *stData);
+		
 };
 
 #endif
