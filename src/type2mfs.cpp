@@ -1,14 +1,9 @@
-//Author: Abel Teklu Hailemichael
+//Authors: Abel Teklu Hilemichael, Ali Karimoddini, Abdollah Homaifar
 //athailem@aggies.ncat.edu
 //NCAT ACESS LAB
-//When called, operations in this code return a fuzzy type 2 membership value
-
-#include <exception>
-using namespace std;
+//When called, operations in this code return a fuzzy interval type-2 membership value
 
 #include "type2mfs.h"
-#include "fuzz.h"
-#include "defuzz.h"
 
 type2mfs::type2mfs() {
 }

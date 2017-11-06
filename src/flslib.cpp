@@ -1,11 +1,7 @@
-//Author: Abel Teklu Hilemichael
+//Authors: Abel Teklu Hilemichael, Ali Karimoddini, Abdollah Homaifar
 //athailem@aggies.ncat.edu
 //NCAT ACESS LAB
-//The operation in this code performs fuzzy inference operation. It receaves crisp inputs and returns crisp outputs
-
-#include <exception>
-#include <vector>
-#include <iostream>
+//The operation in this code performs type-1 and interval type-2 fuzzy logic operation. It receaves crisp inputs as vectors and returns crisp outputs as vectors.
 
 using namespace std;
 
@@ -15,58 +11,40 @@ flslib::flslib() {}
 flslib::~flslib() {}
 
 
-vector<double> flslib::runFuzzy(vector<double> aInputs) {
-	XMLReader Reader(&stSysData);
-	Reader.ReadXMLFile("C:/Users/Abel/Desktop/hi.xml");
-	//_testData = &stSysData;
-	//vector<double> ins = { 0 };
-	 //vector<vector<vector<double>>> f;// (4, vector<double>(5)));
+vector<double> flslib::runFuzzy(vector<double> aInputs, MainWindow_t *stData) {
+	//XMLReader Reader(&stSysData);
+	//Reader.ReadXMLFile("C:/Users/X1/Desktop/config.xml");
 	
-	if (_type == "T1") {
-		if (_inference == "TSK") {
-			f = _fuz.fuzzifyt2(&aInputs, &stSysData);
-			_fuzzVal = _fuz.fuzzify( &aInputs, &stSysData);
-			_firingLevel = _infr._t1_firing_level(&_fuzzVal, &stSysData);
-			_output = _defuz.t1_tsk(aInputs, _firingLevel);
+	if (stData->bType1 == true && stData ->bInterval2 == false) {//if it is t1 system
+		_fuzzifiedVal = _fuz.fuzzifyt1(&aInputs, stData);
+		_t1FiringLevel = _infr._t1_firing_level( &_fuzzifiedVal, stData);
+
+		if (stData->bMamdani == false && stData->bTSK == true) {
+			_tskOutputSet = _infr._type1_tsk_processing(&aInputs, stData);
+			_output = _defuz.t1_tsk(&_t1FiringLevel, &_tskOutputSet, stData);
 		}
 
-		if (_inference == "Mamdani") {
-			_fuzzVal = _fuz.fuzzify(&aInputs, &stSysData);
-			_firingLevel = _infr._t1_firing_level(&_fuzzVal, &stSysData);
-			_output = _defuz.centroid(aInputs, _firingLevel);
+		else if (stData->bMamdani == true && stData->bTSK == false) {//inference is mamdani
+			_mamdaniOutputSet = _infr._type1_mamdani_processing(&_t1FiringLevel, stData);
+			_output = _defuz.centroid(&_mamdaniOutputSet, stData);
 		}
-
-		else { throw "Not yet implemented"; }
+		else { throw("Wrong configuration!"); }
 	}
-	//throw "not";
-	/*if (_type == "IT2") {
-		if (_inference == "TSK") {
-			if (_defuzzMethod == "UB") {
-				_umf_fuzzVal = _fuz.fuzzify(1, aInputs, "Desktop/example1.xml");
-				_lmf_fuzzVal = _fuz.fuzzify(2, aInputs, "Desktop/example1.xml");
-				_umf_firingLevel = _infr._t1_firing_level(_umf_fuzzVal, "C:/Users/Abel/Desktop/hi.xml");
-				_lmf_firingLevel = _infr._t1_firing_level(_lmf_fuzzVal, "C:/Users/Abel/Desktop/hi.xml");
-				_output = _defuz.ub(aInputs, _umf_firingLevel, _lmf_firingLevel);
-			}
+	else if (stData->bType1 == false && stData->bInterval2 == true) {//if it is interval type-2 system
+		_it2FuzzifiedVal = _fuz.fuzzifyit2(&aInputs, stData);
+		_it2FiringLevel = _infr._it2_firing_level(&_it2FuzzifiedVal, stData);
+
+		if (stData->bMamdani == false && stData->bTSK == true) {
+			_it2TSKOutputSet = _infr._it2_tsk_processing(&aInputs, &_it2FiringLevel, stData);
+			_output = _defuz.ub(&_it2TSKOutputSet, stData);
 		}
 
-		if (_inference == "Mamdani") {
-			if (_defuzzMethod == "NT") {
-				_umf_fuzzVal = _fuz.fuzzify(1, aInputs, "Desktop/example1.xml");
-				_lmf_fuzzVal = _fuz.fuzzify(2, aInputs, "Desktop/example1.xml");
-				_umf_firingLevel = _infr._t1_firing_level(_umf_fuzzVal, "C:/Users/Abel/Desktop/hi.xml");
-				_lmf_firingLevel = _infr._t1_firing_level(_lmf_fuzzVal, "C:/Users/Abel/Desktop/hi.xml");
-				_output = _defuz.nt(aInputs, _umf_firingLevel, _lmf_firingLevel);
-			}
+		else if (stData->bMamdani == true && stData->bTSK == false) {//inference is mamdani
+			_mamdaniOutputSet = _infr._it2_mamdani_processing(&_it2TSKOutputSet, stData);
+			_output = _defuz.nt(&_mamdaniOutputSet, stData);
 		}
-
-		else { throw "Not yet implemented"; }
+		else { throw("Wrong configuration!"); }
 	}
-	if (_type == "T2") {
-		if (_inference == "TSK") {
-			throw "Not yet implemented";
-		}
-		else { throw "Not yet implemented"; }
-	}*/
+	else { throw("Wrong configuration!"); }
 	return _output;
 }

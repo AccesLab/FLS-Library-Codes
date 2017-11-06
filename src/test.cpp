@@ -1,4 +1,4 @@
-//Author: Abel Teklu Hilemichael
+//Authors: Abel Teklu Hilemichael, Ali Karimoddini, Abdollah Homaifar
 //athailem@aggies.ncat.edu
 //NCAT ACESS LAB
 //Test Code
@@ -6,9 +6,6 @@
 #include "iostream"
 #include <vector>
 #include <algorithm>
-//#include "fuzzyparam.h"
-//#include "fuzzyParam.h"
-//#include "fuzzy.h"
 #include "flslib.h"
 #include <ctime>
 #include "commondef.h"

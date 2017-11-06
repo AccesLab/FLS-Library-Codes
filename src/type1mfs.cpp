@@ -1,14 +1,9 @@
-//Author: Abel Teklu Hilemichael
+//Authors: Abel Teklu Hilemichael, Ali Karimoddini, Abdollah Homaifar
 //athailem@aggies.ncat.edu
 //NCAT ACESS LAB
 //This code returns the membership value for type 1 triangular trapezoidal and gaussina membership functions
 
-#include <exception>
-using namespace std;
-
 #include "type1mfs.h"
-#include "fuzz.h"
-#include "defuzz.h"
 
 type1mfs::type1mfs() {
 }

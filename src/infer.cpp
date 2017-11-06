@@ -1,21 +1,19 @@
-//Author: Abel Teklu Hilemichael
+//Authors: Abel Teklu Hilemichael, Ali Karimoddini, Abdollah Homaifar
 //athailem@aggies.ncat.edu
 //NCAT ACESS LAB
-//The operation in this code performs fuzzy inference operations and returns firing level
+//The operations in this code performs fuzzy inference processes. They return firing level and output fuzzy set for a type-1 anf inteval type-2 FLSs 
+//which are based on both Mamdani and TSK inference techniques
 
-#include <exception>
-#include <vector>
-#include <iostream>
 using namespace std;
 
 #include "infer.h"
-infer::infer() {
-	_outputFset = { { 0 } };
+inference::inference() {
+	_outputFset = { { { 0 } } };
 }
-infer::~infer() {
+inference::~inference() {
 }
 
-vector<double> infer::_t1_firing_level(vector<vector<double>> *aFuzzified_val, MainWindow_t *stData) {
+vector<double> inference::_t1_firing_level(vector<vector<double>> *aFuzzified_val, MainWindow_t *stData) {
 
 	_firing_level.clear();
 
@@ -64,7 +62,7 @@ vector<double> infer::_t1_firing_level(vector<vector<double>> *aFuzzified_val, M
 	return _firing_level;
 }
 
-vector<vector<double>> infer::_type1_mamdani_processing(vector<double> *aFiring_level, MainWindow_t *stData) {
+vector<vector<vector<double>>> inference::_type1_mamdani_processing(vector<double> *aFiring_level, MainWindow_t *stData) {
 	double maxVal;
 		for (int i = 0; i < stData->vstOutputs.size(); i++) {//for all outputs
 			//OutputData_t stOutput = stData->vstOutputs[i];
@@ -101,8 +99,8 @@ vector<vector<double>> infer::_type1_mamdani_processing(vector<double> *aFiring_
 
 					QString sConsString = stData->vstRules[_r].sConsequent;//get the rule consequent from the configuration file
 					QStringList slConsTockens = sConsString.split(",");//parse and extract the consequents
-					double oFval = slTockens[0].toDouble();
-					double oFuzVal;
+					double oFval = slTockens[0].toDouble();//the minimum range is the start point
+					double oFuzVal = 0.0;
 					for (int rOutput = 0; rOutput < int(dPrecssision); rOutput++)//for all discrete levels, find membership value and perform implication for the given rule
 					{
 						//find the membership value
@@ -123,28 +121,42 @@ vector<vector<double>> infer::_type1_mamdani_processing(vector<double> *aFiring_
 
 						//do min clipping/implication
 						if (oFuzVal >= *((double *)(&aFiring_level[rOutput]))) {
-							_outputFset[rOutput].push_back(*((double *)(&aFiring_level[rOutput])));
+							_outputFset[0][rOutput].push_back(*((double *)(&aFiring_level[rOutput])));
+							_outputFset[1][rOutput].push_back(oFval);
 						}
-						else { _outputFset[rOutput].push_back(oFuzVal); }
+						else { 
+							_outputFset[0][rOutput].push_back(oFuzVal);
+							_outputFset[1][rOutput].push_back(oFval);
+						}
 						oFval += dQuantization;
 					}
 				}
-				else{ _outputFset[_r] = zeros1; }
+				else{ 
+					double oFval = slTockens[0].toDouble();//the minimum range is the start point
+					double oFuzVal = 0.0;
+					for (int rOutput = 0; rOutput < int(dPrecssision); rOutput++)//for all discrete levels, find membership value and perform implication for the given rule
+					{
+						_outputFset[0][rOutput].push_back(0.0);
+						_outputFset[1][rOutput].push_back(oFval);
+						oFval += dQuantization;
+					}
+				}
 			}
 			//Find the Aggregate Set
 			for (int l = 0; l < dPrecssision; l++) {
 				maxVal = 0;
 				for (int _r = 0; _r < stData->vstRules.size(); _r++) {
-					maxVal = max(_outputFset[_r][l], maxVal);
+					maxVal = max(_outputFset[0][_r][l], maxVal);
 				}
-				_outputSet[i].push_back(maxVal);
-			}
+				_outputSet[i][0].push_back(maxVal);
+				_outputSet[i][1].push_back(_outputFset[0][1][l]);
+			}			
 		}
 		return _outputSet;		
 }
 //Interval Type-2 System Inference
 
-vector<vector<double>> infer::_type1_tsk_processing(vector<double> *aInputs, MainWindow_t *stData) {
+vector<vector<vector<double>>> inference::_type1_tsk_processing(vector<double> *aInputs, MainWindow_t *stData) {
 	double tskOutput;
 	_outputSet.clear();
 		
@@ -157,13 +169,13 @@ vector<vector<double>> infer::_type1_tsk_processing(vector<double> *aInputs, Mai
 				for (int j = 0; j < stData->vstInputs.size(); j++) {//for all inputs
 					tskOutput += (slConsTockens[j].toDouble() * *((double *)(&aInputs[j])));//add the configured tsk coefficients multiplied by the respective inputs
 				}
-				_outputSet[_r].push_back(tskOutput);//push the tsk output for all outputs of a single rule
+				_toutputSet[_r][i].push_back(tskOutput);//push the tsk output for all outputs of a single rule
 			}
 		}
-	return _outputSet;
+	return _toutputSet;
 }
 
-vector<vector<double>> infer::_it2_firing_level(vector<vector<vector<double>>> *aFuzzified_val, MainWindow_t *stData) {
+vector<vector<double>> inference::_it2_firing_level(vector<vector<vector<double>>> *aFuzzified_val, MainWindow_t *stData) {
 
 	_firing_level_t2.clear();
 
@@ -217,7 +229,7 @@ vector<vector<double>> infer::_it2_firing_level(vector<vector<vector<double>>> *
 	return _firing_level_t2;
 }
 
-vector<vector<vector<double>>> infer::_it2_mamdani_processing(vector<vector<double>> *aFiring_level, MainWindow_t *stData) {
+vector<vector<vector<double>>> inference::_it2_mamdani_processing(vector<vector<double>> *aFiring_level, MainWindow_t *stData) {
 	double maxValUMF, maxValLMF;
 
 	for (int i = 0; i < stData->vstOutputs.size(); i++) {//for all outputs
@@ -247,13 +259,13 @@ vector<vector<vector<double>>> infer::_it2_mamdani_processing(vector<vector<doub
 		dPrecssision = (abs(slTockens[1].toDouble()) - abs(slTockens[0].toDouble())) / dQuantization; //Get precession = Largest O/P range / quantization
 		vector<double> zeros(dPrecssision, 0);
 		vector<double> zeros1 = zeros;
+		double oFval = slTockens[0].toDouble();//[0] is the starting point of the output range
 
 		for (int _r = 0; _r < stData->vstRules.size(); _r++) {//for all rules
 			if ((double *)(&aFiring_level[0][_r]) != 0) {//save computation time if firing level is zero. If so, all output membership values will be zero.
 
 				QString sConsString = stData->vstRules[_r].sConsequent;//get the rule consequent from the configuration file
 				QStringList slConsTockens = sConsString.split(",");//parse and extract the consequents
-				double oFval = slTockens[0].toDouble();//[0] is the starting point of the output range
 				double oFuzValUMF, oFuzValLMF;
 
 				for (int rOutput = 0; rOutput < int(dPrecssision); rOutput++)//for all discrete levels, find membership value and perform implication for the given rule
@@ -278,30 +290,37 @@ vector<vector<vector<double>>> infer::_it2_mamdani_processing(vector<vector<doub
 
 					//do clipping/implication for UMF
 					if (oFuzValUMF >= *((double *)(&aFiring_level[0][rOutput]))) {
-						_outputFsetUMF[rOutput].push_back(*((double *)(&aFiring_level[0][rOutput])));
+						_outputFsetUMF[0][rOutput].push_back(*((double *)(&aFiring_level[0][rOutput])));
 					}
-					else { _outputFsetUMF[rOutput].push_back(oFuzValUMF); }
+					else { _outputFsetUMF[0][rOutput].push_back(oFuzValUMF); }
 
 					//do clipping/implication for LMF
 					if (oFuzValLMF >= *((double *)(&aFiring_level[1][rOutput]))) {
-						_outputFsetLMF[rOutput].push_back(*((double *)(&aFiring_level[1][rOutput])));
+						_outputFsetLMF[1][rOutput].push_back(*((double *)(&aFiring_level[1][rOutput])));
 					}
-					else { _outputFsetLMF[rOutput].push_back(oFuzValLMF); }
-
+					else { _outputFsetLMF[1][rOutput].push_back(oFuzValLMF); }
+					_it2_outputFset[2][rOutput].push_back(oFval);
 					oFval += dQuantization;
 				}
 			}
 			else { 
-				_outputFsetUMF[_r] = zeros1;
-				_outputFsetLMF[_r] = zeros1;
+				for (int rOutput = 0; rOutput < int(dPrecssision); rOutput++)//for all discrete levels, find membership value and perform implication for the given rule
+				{
+					//_outputFsetUMF[_r] = zeros1;
+					//_outputFsetLMF[_r] = zeros1;
+					_outputFsetLMF[0][rOutput].push_back(0);
+					_outputFsetLMF[1][rOutput].push_back(0);
+					_it2_outputFset[2][rOutput].push_back(oFval);
+					oFval += dQuantization;
+				}
 				}
 		}
 		//Find the Aggregate Set
 		for (int l = 0; l < dPrecssision; l++) {
 			maxValUMF = 0; maxValLMF = 0;
 			for (int _r = 0; _r < stData->vstRules.size(); _r++) {
-				maxValUMF = max(_outputFset[_r][l], maxValUMF);
-				maxValLMF = max(_outputFset[_r][l], maxValLMF);
+				maxValUMF = max(_outputFset[0][_r][l], maxValUMF);
+				maxValLMF = max(_outputFset[1][_r][l], maxValLMF);
 			}
 			_it2_outputFset[0][i].push_back(maxValUMF);
 			_it2_outputFset[1][i].push_back(maxValLMF);
@@ -310,7 +329,7 @@ vector<vector<vector<double>>> infer::_it2_mamdani_processing(vector<vector<doub
 	return _it2_outputFset;
 }
 
-vector<vector<double>> infer::_it2_tsk_processing(vector<double> *aInputs, vector<vector<double>> *aFiring_level, MainWindow_t *stData) {
+vector<vector<double>> inference::_it2_tsk_processing(vector<double> *aInputs, vector<vector<double>> *aFiring_level, MainWindow_t *stData) {
 	double tskOutputl, tskOutputu;
 	QStringList slConsTockens1, slConsTockens2, slConsTockens3, slConsTockens4;
 	vector<double> _y_l;
@@ -388,8 +407,8 @@ vector<vector<double>> infer::_it2_tsk_processing(vector<double> *aInputs, vecto
 		_y_left = (yl_hi + yl_lo) / 2;
 		_y_right = (yr_hi + yr_lo) / 2;
 
-		_outputSet[_out].push_back(_y_left);
-		_outputSet[_out].push_back(_y_right);
+		_tskOutputSet[_out].push_back(_y_left);
+		_tskOutputSet[_out].push_back(_y_right);
 	}
-	return _outputSet;
+	return _tskOutputSet;
 }

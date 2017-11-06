@@ -1,4 +1,4 @@
-//Author: Abel Teklu Hilemichael
+//Authors: Abel Teklu Hilemichael, Ali Karimoddini, Abdollah Homaifar
 //athailem@aggies.ncat.edu
 //NCAT ACESS LAB
 

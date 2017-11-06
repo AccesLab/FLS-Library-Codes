@@ -1,19 +1,16 @@
-//Author: Abel Teklu Hailemichael
+//Authors: Abel Teklu Hilemichael, Ali Karimoddini, Abdollah Homaifar
 //athailem@aggies.ncat.edu
 //NCAT ACESS LAB
 
 #include <exception>
 #include <vector>
 #include "math.h"
-#include "flsconfig.h"
 #include "commondef.h"
 #include "XMLReader.h"
 #include <algorithm>
-#include "gaussMF.h"
-#include "triMF.h"
-#include "trapMF.h"
-#include "T2_MF.h"
 #include "type1mfs.h"
+#include "type2mfs.h"
+#include <iostream>
 
 using namespace std;
 
@@ -22,13 +19,15 @@ using namespace std;
 
 struct MainWindow_t;
 
-class infer;
+class inference;
 
 class type1mfs;
+class type2mfs;
 
-class infer
+class inference
 {
 	type1mfs t1mfs;
+	type2mfs t2mfs;
 
 	private: double _min;
 	private: double dVal;
@@ -47,22 +46,24 @@ class infer
 	private: QVector<double> vConsequents;
 	private: vector<double> _firing_level;
 	private: vector<vector<double> > _firing_level_t2;
-	private: vector<vector<double>> _outputFset;
-	private: vector<vector<double>> _outputSet;
-	private: vector<vector<double>> _outputFsetUMF;
-	private: vector<vector<double>> _outputFsetLMF;
+	private: vector<vector<double>> _tskOutputSet;
+	private: vector<vector<vector<double>>> _outputFset;
+	private: vector<vector<vector<double>>> _outputSet;
+	private: vector<vector<vector<double>>> _toutputSet;
+	private: vector<vector<vector<double>>> _outputFsetUMF;
+	private: vector<vector<vector<double>>> _outputFsetLMF;
 	private: vector<vector<vector<double>>> _it2_outputFset;
 	//private: QVector<QStringList> slConsTockens2;
 	//private: vector<vector<double>> _tskEachOut;
 	//private: vector<vector<double>> _tskEachOut;
 
-	public: infer();
-	public: ~infer();
+	public: inference();
+	public: ~inference();
 
 	public: vector<double> _t1_firing_level(vector<vector<double>> *aFuzzified_val, MainWindow_t *stData);
 	public: vector<vector<double>> _it2_firing_level(vector<vector<vector<double>>> *aFuzzified_val, MainWindow_t *stData);
-	public:	vector<vector<double>> _type1_mamdani_processing(vector<double> *aFiring_level, MainWindow_t *stData);
-	public:	vector<vector<double>> _type1_tsk_processing(vector<double> *aInputs, MainWindow_t *stData);
+	public:	vector<vector<vector<double>>> _type1_mamdani_processing(vector<double> *aFiring_level, MainWindow_t *stData);
+	public:	vector<vector<vector<double>>> _type1_tsk_processing(vector<double> *aInputs, MainWindow_t *stData);
 	public:	vector<vector<vector<double>>> _it2_mamdani_processing(vector<vector<double>> *aFiring_level, MainWindow_t *stData);
 	public:	vector<vector<double>> _it2_tsk_processing(vector<double> *aInputs, vector<vector<double>> *aFiring_level, MainWindow_t *stData);
 };

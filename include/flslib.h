@@ -1,15 +1,16 @@
-//Author: Abel Teklu Hilemichael
+//Authors: Abel Teklu Hilemichael, Ali Karimoddini, Abdollah Homaifar
 //athailem@aggies.ncat.edu
 //NCAT ACESS LAB
 
 #include <exception>
 #include <vector>
-#include "flsconfig.h"
+#include <iostream>
 #include "fuzz.h"
 #include "infer.h"
 #include "defuzz.h"
 #include "commondef.h"
 #include "XMLReader.h"
+
 using namespace std;
 
 #ifndef __flslib_h__
@@ -17,33 +18,27 @@ using namespace std;
 
 struct MainWindow_t;
 
-class FLS;
+class flslib;
 
 /**
  * This class subscribes for ROS inputs to the fuzzy toolbox. It also publishes the final crisp values to the ROS master. This class also reads parameters.
  */
 class flslib
 {
-	MainWindow_t stSysData;
 	//MainWindow_t stSysData;
 
-	private: fuzz _fuz;
-	private: infer _infr;
-	private: defuzz _defuz;
+	private: fuzzify _fuz;
+	private: inference _infr;
+	private: defuzzify _defuz;
 
-	private: vector<vector<double>> _fuzzVal; 
-	private: vector<vector<double>> _umf_fuzzVal;
-	private: vector<vector<double>>_lmf_fuzzVal;
-	private: vector<double> _firingLevel;
-	private: vector<double> _umf_firingLevel;
-	private: vector<double> _lmf_firingLevel;
+	private: vector<double> _t1FiringLevel;
+	private: vector<vector<double>> _it2FiringLevel;
+	private: vector<vector<double>> _fuzzifiedVal;
+	private: vector<vector<vector<double>>> _it2FuzzifiedVal;
+	private: vector<vector<vector<double>>> _tskOutputSet;
+	private: vector<vector<double>> _it2TSKOutputSet;
+	private: vector<vector<vector<double>>> _mamdaniOutputSet;
 	private: vector<double> _output;
-private: vector<double> tad;
-	private:	 vector<double> ins = { 0 };
-	private:	 vector<vector<vector<double>>> f;
-
-
-	MainWindow_t _testData;
 
 	public: flslib();
 	public: ~flslib();
@@ -51,7 +46,7 @@ private: vector<double> tad;
 	/// This operation publishes crisp outputs which are defined in readParams() : void to ROS master.
 	/// </summary>
 	//public: void getParams();
-	public: vector<double> runFuzzy(vector<double> aInputs);
+	public: vector<double> runFuzzy(vector<double> aInputs, MainWindow_t *stData);
 };
 
 #endif
