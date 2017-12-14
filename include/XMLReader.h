@@ -1,3 +1,7 @@
+//Authors: Abel Teklu Hilemichael (athailem@aggies.ncat.edu), Ali Karimoddini (akarimod@ncat.edu)
+//About: The work has been done in ACESS Laboratory (http://accesslab.net/) at NC A&T State University
+//About: The operations in this code is used for reading and parsing and XML file of the FLS Library configuration
+
 #ifndef XMLREADER_H
 #define XMLREADER_H
 

@@ -1,7 +1,6 @@
-//Authors: Abel Teklu Hilemichael, Ali Karimoddini, Abdollah Homaifar
-//athailem@aggies.ncat.edu
-//NCAT ACESS LAB
-//This code returns the membership value for type 1 triangular trapezoidal and gaussina membership functions
+//Authors: Abel Teklu Hilemichael (athailem@aggies.ncat.edu), Ali Karimoddini (akarimod@ncat.edu)
+//About: The work has been done in ACESS Laboratory (http://accesslab.net/) at NC A&T State University
+//About: The operations in this code return a membership value for a traingular, trapezoidal and gaussian type-1 membership functions.
 
 #include "type1mfs.h"
 

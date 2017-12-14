@@ -1,3 +1,7 @@
+//Authors: Abel Teklu Hilemichael (athailem@aggies.ncat.edu), Ali Karimoddini (akarimod@ncat.edu)
+//About: The work has been done in ACESS Laboratory (http://accesslab.net/) at NC A&T State University
+//About: Structure definition of FLS Properties
+
 #ifndef COMMONDEF_H
 #define COMMONDEF_H
 #include <QString>
@@ -69,6 +73,93 @@ struct MainWindow_t
     QVector<InputData_t>  vstInputs;
     QVector<OutputData_t> vstOutputs;
     QVector<Rule_t>       vstRules;
+};
+
+struct t1FuzzifiedVal
+{
+	QVector<double>  vT1FuzzVal;
+};
+
+struct it2FuzzifiedVal
+{
+	QVector<double>  vIt2UMFFuzzVal;
+	QVector<double>  vIt2LMFFuzzVal;
+};
+
+struct t1InputFSs
+{
+	QVector<t1FuzzifiedVal>  vstT1FuzzVal;
+};
+
+struct it2InputFSs
+{
+	QVector<it2FuzzifiedVal>  vstIT2FuzzVal;
+};
+
+struct t1Firing
+{
+	QVector<double>  vT1FiringL;
+};
+
+struct it2Firing
+{
+	QVector<double>  vIt2UMFFiringL;
+	QVector<double>  vIt2LMFFiringL;
+};
+
+struct t1MamOutputFS
+{
+	QVector<double>  vAggregateSet;
+	QVector<double>  vDescreteVals;
+};
+
+struct t1MamOutputFSs
+{
+	QVector<t1MamOutputFS>  vstT1OutputFS;
+};
+
+struct it2MamOutputFS
+{
+	QVector<double>  vAggregateSetUMF;
+	QVector<double>  vAggregateSetLMF;
+	QVector<double>  vDescreteVals;
+};
+
+struct it2MamOutputFSs
+{
+	QVector<it2MamOutputFS>  vstIt2OutputFS;
+};
+
+struct t1TSKOutputFS
+{
+	QVector<double>  vRuleOutput;
+};
+
+struct t1TSKOutputFSs
+{
+	QVector<t1TSKOutputFS>  vstT1TSKOutputFSs;
+};
+
+struct it2TSKOutputFS
+{
+	QVector<double>  vRuleUMFOutput;
+	QVector<double>  vRuleLMFOutput;
+};
+
+struct it2TSKOutputFSs
+{
+	QVector<it2TSKOutputFS>  vstIt2TSKOutputFSs;
+};
+
+struct it2TSKrOutput
+{
+	QVector<double>  _y_l_;
+	QVector<double>  _y_r_;
+};
+
+struct it2TSKrOutputs
+{
+	QVector<it2TSKrOutput>  ruleOutputs;
 };
 
 #endif // COMMONDEF_H

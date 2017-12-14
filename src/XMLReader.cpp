@@ -1,3 +1,7 @@
+//Authors: Abel Teklu Hilemichael (athailem@aggies.ncat.edu), Ali Karimoddini (akarimod@ncat.edu)
+//About: The work has been done in ACESS Laboratory (http://accesslab.net/) at NC A&T State University
+//About: The operations in this code is used for reading and parsing and XML file of the FLS Library configuration
+
 #include "XMLReader.h"
 
 #include <QFile>
@@ -18,8 +22,7 @@ bool XMLReader::ReadXMLFile(QString sFileName_i)
 {
     MetaRecordReader Reader;
     Reader.read(sFileName_i);
-    const MetaRecordItem* Record = Reader.getResult();//1,2,3,4
-
+    const MetaRecordItem* Record = Reader.getResult();
     if (Record == 0)
         return false;
     MetaRecordItem* pFLS = Record->getChildItem("FLS");
@@ -136,41 +139,75 @@ bool XMLReader::ReadInputs(const MetaRecordItem* pSystem_i)
                 break;
             }
             InputMF_t stInMF;
-            MetaRecordItem* pMFName = pMF->getChildItem("name");
-            if (pMFName != 0)
-            {
-                stInMF.sName = pMFName->getValue();
-            }
-            MetaRecordItem* pMFType = pMF->getChildItem("type");
-            if (pMFType != 0)
-            {
-                stInMF.sType = pMFType->getValue();
-            }
-            MetaRecordItem* pMFP1 = pMF->getChildItem("P1");
-            if (pMFP1 != 0)
-            {
-                stInMF.dP1 = pMFP1->getValue().toDouble();
-            }
-            MetaRecordItem* pMFP2 = pMF->getChildItem("P2");
-            if (pMFP2 != 0)
-            {
-                stInMF.dP2 = pMFP2->getValue().toDouble();
-            }
-            MetaRecordItem* pMFP3 = pMF->getChildItem("P3");
-            if (pMFP3 != 0)
-            {
-                stInMF.dP3 = pMFP3->getValue().toDouble();
-            }
-            MetaRecordItem* pMFP4 = pMF->getChildItem("P4");
-            if (pMFP4 != 0)
-            {
-                stInMF.dP4 = pMFP4->getValue().toDouble();
-            }
-            MetaRecordItem* pMFMaximum = pMF->getChildItem("maximum");
-            if (pMFMaximum != 0)
-            {
-                stInMF.dMaximum = pMFMaximum->getValue().toDouble();
-            }
+
+			QString sMF = pMF->getValue();
+			QStringList slItems = sMF.split('~');
+			foreach(QString sItem, slItems)
+			{
+				if (sItem.contains("name"))
+				{
+					stInMF.sName = sItem.split('\'').at(1);
+				}
+				else if (sItem.contains("type"))
+				{
+					stInMF.sType = sItem.split('\'').at(1);
+				}
+				else if (sItem.contains("P1"))
+				{
+					stInMF.dP1 = sItem.split('\'').at(1).toDouble();
+				}
+				else if (sItem.contains("P2"))
+				{
+					stInMF.dP2 = sItem.split('\'').at(1).toDouble();
+				}
+				else if (sItem.contains("P3"))
+				{
+					stInMF.dP3 = sItem.split('\'').at(1).toDouble();
+				}
+				else if (sItem.contains("P4"))
+				{
+					stInMF.dP4 = sItem.split('\'').at(1).toDouble();
+				}
+				else if (sItem.contains("maximum"))
+				{
+					stInMF.dMaximum = sItem.split('\'').at(1).toDouble();
+				}
+			}
+            //MetaRecordItem* pMFName = pMF->getChildItem("name");
+            //if (pMFName != 0)
+            //{
+            //    stInMF.sName = pMFName->getValue();
+            //}
+            //MetaRecordItem* pMFType = pMF->getChildItem("type");
+            //if (pMFType != 0)
+            //{
+            //    stInMF.sType = pMFType->getValue();
+            //}
+            //MetaRecordItem* pMFP1 = pMF->getChildItem("P1");
+            //if (pMFP1 != 0)
+            //{
+            //    stInMF.dP1 = pMFP1->getValue().toDouble();
+            //}
+            //MetaRecordItem* pMFP2 = pMF->getChildItem("P2");
+            //if (pMFP2 != 0)
+            //{
+            //    stInMF.dP2 = pMFP2->getValue().toDouble();
+            //}
+            //MetaRecordItem* pMFP3 = pMF->getChildItem("P3");
+            //if (pMFP3 != 0)
+            //{
+            //    stInMF.dP3 = pMFP3->getValue().toDouble();
+            //}
+            //MetaRecordItem* pMFP4 = pMF->getChildItem("P4");
+            //if (pMFP4 != 0)
+            //{
+            //    stInMF.dP4 = pMFP4->getValue().toDouble();
+            //}
+            //MetaRecordItem* pMFMaximum = pMF->getChildItem("maximum");
+            //if (pMFMaximum != 0)
+            //{
+            //    stInMF.dMaximum = pMFMaximum->getValue().toDouble();
+            //}
             stInput.vstMF.push_back(stInMF);
         }
         m_pstData->vstInputs.push_back(stInput);
@@ -215,7 +252,7 @@ bool XMLReader::ReadOutputs(const MetaRecordItem* pSystem_i)
             QStringList slItems = sMF.split('~');
             foreach (QString sItem, slItems)
             {
-                if (sItem.contains("Antecedent"))
+                if (sItem.contains("name"))
                 {
                     stOutMF.sName = sItem.split('\'').at(1);
                 }
@@ -248,46 +285,46 @@ bool XMLReader::ReadOutputs(const MetaRecordItem* pSystem_i)
                     stOutMF.sTSKCoefficients = sItem.split('\'').at(1);
                 }
             }
-        //    MetaRecordItem* pMFName = pMF->getChildItem("name");
-        //    if (pMFName != 0)
-        //    {
-        //        stOutMF.sName = pMFName->getValue();
-        //    }
-        //    MetaRecordItem* pMFType = pMF->getChildItem("type");
-        //    if (pMFType != 0)
-        //    {
-        //        stOutMF.sType = pMFType->getValue();
-        //    }
-        //    MetaRecordItem* pMFP1 = pMF->getChildItem("P1");
-        //    if (pMFP1 != 0)
-        //    {
-        //        stOutMF.nP1 = pMFP1->getValue().toDouble();
-        //    }
-        //    MetaRecordItem* pMFP2 = pMF->getChildItem("P2");
-        //    if (pMFP2 != 0)
-        //    {
-        //        stOutMF.nP2 = pMFP2->getValue().toDouble();
-        //    }
-        //    MetaRecordItem* pMFP3 = pMF->getChildItem("P3");
-        //    if (pMFP3 != 0)
-        //    {
-        //        stOutMF.nP3 = pMFP3->getValue().toDouble();
-        //    }
-        //    MetaRecordItem* pMFP4 = pMF->getChildItem("P4");
-        //    if (pMFP4 != 0)
-        //    {
-        //        stOutMF.nP4 = pMFP4->getValue().toDouble();
-        //    }
-        //    MetaRecordItem* pMFMaximum = pMF->getChildItem("maximum");
-        //    if (pMFMaximum != 0)
-        //    {
-        //        stOutMF.fMaximum = pMFMaximum->getValue().toDouble();
-        //    }
-        //    MetaRecordItem* pMFTSK_Coefficients = pMF->getChildItem("TSK_Coefficients");
-        //    if (pMFTSK_Coefficients != 0)
-        //    {
-        //        stOutMF.sTSKCoefficients = pMFTSK_Coefficients->getValue();
-        //    }
+            //MetaRecordItem* pMFName = pMF->getChildItem("name");
+            //if (pMFName != 0)
+            //{
+            //    stOutMF.sName = pMFName->getValue();
+            //}
+            //MetaRecordItem* pMFType = pMF->getChildItem("type");
+            //if (pMFType != 0)
+            //{
+            //    stOutMF.sType = pMFType->getValue();
+            //}
+            //MetaRecordItem* pMFP1 = pMF->getChildItem("P1");
+            //if (pMFP1 != 0)
+            //{
+            //    stOutMF.nP1 = pMFP1->getValue().toDouble();
+            //}
+            //MetaRecordItem* pMFP2 = pMF->getChildItem("P2");
+            //if (pMFP2 != 0)
+            //{
+            //    stOutMF.nP2 = pMFP2->getValue().toDouble();
+            //}
+            //MetaRecordItem* pMFP3 = pMF->getChildItem("P3");
+            //if (pMFP3 != 0)
+            //{
+            //    stOutMF.nP3 = pMFP3->getValue().toDouble();
+            //}
+            //MetaRecordItem* pMFP4 = pMF->getChildItem("P4");
+            //if (pMFP4 != 0)
+            //{
+            //    stOutMF.nP4 = pMFP4->getValue().toDouble();
+            //}
+            //MetaRecordItem* pMFMaximum = pMF->getChildItem("maximum");
+            //if (pMFMaximum != 0)
+            //{
+            //    stOutMF.fMaximum = pMFMaximum->getValue().toDouble();
+            //}
+            //MetaRecordItem* pMFTSK_Coefficients = pMF->getChildItem("TSK_Coefficients");
+            //if (pMFTSK_Coefficients != 0)
+            //{
+            //    stOutMF.sTSKCoefficients = pMFTSK_Coefficients->getValue();
+            //}
             stOutput.vstMF.push_back(stOutMF);
         }
         m_pstData->vstOutputs.push_back(stOutput);

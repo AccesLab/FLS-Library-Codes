@@ -1,6 +1,6 @@
-//Authors: Abel Teklu Hilemichael, Ali Karimoddini, Abdollah Homaifar
-//athailem@aggies.ncat.edu
-//NCAT ACESS LAB
+//Authors: Abel Teklu Hilemichael (athailem@aggies.ncat.edu), Ali Karimoddini (akarimod@ncat.edu)
+//About: The work has been done in ACESS Laboratory (http://accesslab.net/) at NC A&T State University
+//About: The operations in this code return a membership value for a traingular, trapezoidal and gaussian type-1 membership functions.
 
 #include <exception>
 using namespace std;

@@ -1,3 +1,7 @@
+//Authors: Abel Teklu Hilemichael (athailem@aggies.ncat.edu), Ali Karimoddini (akarimod@ncat.edu)
+//About: The work has been done in ACESS Laboratory (http://accesslab.net/) at NC A&T State University
+//About: Meta record of variables and structures.
+
 #include "MetaRecord.h"
 #include <QDomElement>
 #include <QFile>

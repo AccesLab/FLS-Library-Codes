@@ -1,7 +1,7 @@
-//Authors: Abel Teklu Hilemichael, Ali Karimoddini, Abdollah Homaifar
-//athailem@aggies.ncat.edu
-//NCAT ACESS LAB
-//When called, operations in this code return a fuzzy interval type-2 membership value
+//Authors: Abel Teklu Hilemichael (athailem@aggies.ncat.edu), Ali Karimoddini (akarimod@ncat.edu)
+//About: The work has been done in ACESS Laboratory (http://accesslab.net/) at NC A&T State University
+//About: The operations in this code return the membership value for the upper and lower embedded type-1 memberships of 
+// an interval type-2 membership function.
 
 #include "type2mfs.h"
 
